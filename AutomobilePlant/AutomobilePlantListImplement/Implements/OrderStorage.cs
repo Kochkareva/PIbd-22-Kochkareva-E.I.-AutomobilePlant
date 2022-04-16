@@ -39,7 +39,9 @@ namespace AutomobilePlantListImplement.Implements
             var result = new List<OrderViewModel>();
             foreach (var order in source.Orders)
             {
-                if (order.CarId == model.CarId || order.DateCreate >= model.DateFrom && order.DateCreate <= model.DateTo)
+                if (order.Id == model.Id || (model.DateFrom.HasValue && model.DateTo.HasValue &&
+                    order.DateCreate >= model.DateFrom && order.DateCreate <= model.DateTo)
+                    || model.ClientId.HasValue && order.ClientId == model.ClientId.Value)
                 {
                     result.Add(CreateModel(order));
                 }
@@ -109,6 +111,7 @@ namespace AutomobilePlantListImplement.Implements
         private static Order CreateModel(OrderBindingModel model, Order order)
         {
             order.CarId = model.CarId;
+            order.ClientId = model.ClientId.Value;
             order.Count = model.Count;
             order.Sum = model.Sum;
             order.Status = model.Status;
@@ -128,10 +131,21 @@ namespace AutomobilePlantListImplement.Implements
                     break;
                 }
             }
+            string ClientFullName = string.Empty;
+            foreach(var client in source.Clients)
+            {
+                if(order.CarId == client.Id)
+                {
+                    ClientFullName = client.ClientFullName;
+                    break;
+                }
+            }
             return new OrderViewModel
             {
                 Id = order.Id,
                 CarId = order.CarId,
+                ClientId = order.ClientId,
+                ClientFullName = ClientFullName,
                 CarName = carsName,
                 Count = order.Count,
                 Sum = order.Sum,

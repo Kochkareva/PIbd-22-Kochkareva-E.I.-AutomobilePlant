@@ -16,15 +16,18 @@ namespace AutomobilePlantFileImplement
         private readonly string DetailFileName = "Detail.xml";
         private readonly string OrderFileName = "Order.xml";
         private readonly string CarFileName = "Car.xml";
+        private readonly string ClientFileName = "Client.xml";
         public List<Detail> Details { get; set; }
         public List<Order> Orders { get; set; }
         public List<Car> Cars { get; set; }
+        public List<Client> Clients { get; set; }
 
         public FileDataListSingleton()
         {
             Details = LoadDetails();
             Orders = LoadOrders();
             Cars = LoadCars();
+            Clients = LoadClients();
         }
 
         public static FileDataListSingleton GetInstance()
@@ -41,6 +44,7 @@ namespace AutomobilePlantFileImplement
             instance.SaveDetails();
             instance.SaveOrders();
             instance.SaveCars();
+            instance.SaveClients();
         }
 
         private List<Detail> LoadDetails()
@@ -76,6 +80,7 @@ namespace AutomobilePlantFileImplement
                     {
                         Id = Convert.ToInt32(elem.Attribute("Id").Value),
                         CarId = Convert.ToInt32(elem.Element("CarId").Value),
+                        ClientId = Convert.ToInt32(elem.Element("ClientId").Value),
                         Count = Convert.ToInt32(elem.Element("Count").Value),
                         Sum = Convert.ToDecimal(elem.Element("Sum").Value),
                         Status = (OrderStatus)Enum.Parse(typeof(OrderStatus), elem.Element("Status").Value),
@@ -115,6 +120,27 @@ namespace AutomobilePlantFileImplement
             return list;
         }
 
+        private List<Client> LoadClients()
+        {
+            var list = new List<Client>();
+            if (File.Exists(ClientFileName))
+            {
+                XDocument xDocument = XDocument.Load(ClientFileName);
+                var xElements = xDocument.Root.Elements("Client").ToList();
+                foreach (var elem in xElements)
+                {
+                    list.Add(new Client
+                    {
+                        Id = Convert.ToInt32(elem.Attribute("Id").Value),
+                        ClientFullName = elem.Element("ClientFullName").Value,
+                        Login = elem.Element("Login").Value,
+                        Password = elem.Element("Password").Value,
+                    });
+                }
+            }
+            return list;
+        }
+
         private void SaveDetails()
         {
             if (Details != null)
@@ -142,6 +168,7 @@ namespace AutomobilePlantFileImplement
                     xElement.Add(new XElement("Order",
                     new XAttribute("Id", order.Id),
                      new XElement("CarId", order.CarId),
+                     new XElement("ClientId", order.ClientId),
                      new XElement("Count", order.Count),
                      new XElement("Sum", order.Sum),
                      new XElement("Status", order.Status),
@@ -175,6 +202,23 @@ namespace AutomobilePlantFileImplement
                 }
                 var xDocument = new XDocument(xElement);
                 xDocument.Save(CarFileName);
+            }           
+        }
+        private void SaveClients()
+        {
+            if (Clients != null)
+            {
+                var xElement = new XElement("Clients");
+                foreach (var client in Clients)
+                {
+                    xElement.Add(new XElement("Client",
+                    new XAttribute("Id", client.Id),
+                    new XElement("ClientFullName", client.ClientFullName),
+                    new XElement("Login", client.Login),
+                    new XElement("Password", client.Password)));
+                }
+                XDocument xDocument = new XDocument(xElement);
+                xDocument.Save(ClientFileName);
             }
         }
     }

@@ -36,11 +36,12 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
             _orderStorage.Insert(new OrderBindingModel
             {
                 CarId = model.CarId,
+                ClientId = model.ClientId,
                 Count = model.Count,
                 Sum = model.Sum,
                 Status = OrderStatus.Принят,
                 DateCreate = DateTime.Now,
-            }); ;
+            });
         }
 
         public void TakeOrderInWork(ChangeStatusBindingModel model)
@@ -61,6 +62,7 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
             {
                 Id = order.Id,
                 CarId = order.CarId,
+                ClientId = order.ClientId,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = OrderStatus.Выполняется,
@@ -87,6 +89,7 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
             {
                 Id = order.Id,
                 CarId = order.CarId,
+                ClientId = order.ClientId,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = OrderStatus.Готов,
@@ -113,6 +116,7 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
             {
                 Id = order.Id,
                 CarId = order.CarId,
+                ClientId = order.ClientId,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = OrderStatus.Выдан,

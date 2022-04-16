@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AutomobilePlantDatabaseImplement.Migrations
 {
     [DbContext(typeof(AutomobilePlantDatabase))]
-    [Migration("20220331093527_InitialCreate")]
+    [Migration("20220416190758_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,6 +65,30 @@ namespace AutomobilePlantDatabaseImplement.Migrations
                     b.ToTable("CarDetails");
                 });
 
+            modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.Client", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Login")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Clients");
+                });
+
             modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.Detail", b =>
                 {
                     b.Property<int>("Id")
@@ -91,6 +115,9 @@ namespace AutomobilePlantDatabaseImplement.Migrations
                     b.Property<int>("CarId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
@@ -109,6 +136,8 @@ namespace AutomobilePlantDatabaseImplement.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CarId");
+
+                    b.HasIndex("ClientId");
 
                     b.ToTable("Orders");
                 });
@@ -140,7 +169,15 @@ namespace AutomobilePlantDatabaseImplement.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("AutomobilePlantDatabaseImplement.Models.Client", "Client")
+                        .WithMany("Orders")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Car");
+
+                    b.Navigation("Client");
                 });
 
             modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.Car", b =>
@@ -148,6 +185,11 @@ namespace AutomobilePlantDatabaseImplement.Migrations
                     b.Navigation("CarDetails");
 
                     b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.Client", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.Detail", b =>

@@ -9,6 +9,7 @@ namespace AutomobilePlantDatabaseImplement.Models
         public int Id { get; set; }
 
         public int CarId { get; set; }
+        public int ClientId { get; set; }
 
         [Required]
         public int Count { get; set; }
@@ -25,5 +26,6 @@ namespace AutomobilePlantDatabaseImplement.Models
         public DateTime? DateImplement { get; set; }
 
         public virtual Car Car { get; set; }
+        public virtual Client Client { get; set; }
     }
 }

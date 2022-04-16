@@ -15,10 +15,12 @@ namespace AutomobilePlantDatabaseImplement.Implements
         {
             using var context = new AutomobilePlantDatabase();
 
-            return context.Orders.Include(rec => rec.Car).Select(rec => new OrderViewModel
+            return context.Orders.Include(rec => rec.Car).Include(rec => rec.Client).Select(rec => new OrderViewModel
             {
                 Id = rec.Id,
                 CarId = rec.CarId,
+                ClientId = rec.ClientId,
+                ClientFullName = rec.Client.FullName,
                 CarName = rec.Car.CarName,
                 Count = rec.Count,
                 Sum = rec.Sum,
@@ -34,12 +36,15 @@ namespace AutomobilePlantDatabaseImplement.Implements
                 return null;
             }
             using var context = new AutomobilePlantDatabase();
-            return context.Orders.Include(rec => rec.Car)
-            .Where(rec => rec.CarId == model.CarId || rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
+            return context.Orders.Include(rec => rec.Car).Include(rec => rec.Client)
+            .Where(rec => (rec.CarId == model.CarId) || (model.DateFrom.HasValue && model.DateTo.HasValue &&
+            rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo) || (rec.ClientId == model.ClientId))
            .Select(rec => new OrderViewModel
            {
                Id = rec.Id,
                CarId = rec.CarId,
+               ClientId = rec.ClientId,
+               ClientFullName = rec.Client.FullName,
                CarName = rec.Car.CarName,
                Count = rec.Count,
                Sum = rec.Sum,
@@ -55,7 +60,7 @@ namespace AutomobilePlantDatabaseImplement.Implements
                 return null;
             }
             using var context = new AutomobilePlantDatabase();
-            var order = context.Orders.Include(rec => rec.Car)
+            var order = context.Orders.Include(rec => rec.Car).Include(rec => rec.Client)
             .FirstOrDefault(rec => rec.Id == model.Id);
             return order != null ? CreateModel(order) : null;
         }
@@ -115,6 +120,7 @@ namespace AutomobilePlantDatabaseImplement.Implements
         private static Order CreateModel(OrderBindingModel model, Order order)
         {
             order.CarId = model.CarId;
+            order.ClientId = model.ClientId.Value;
             order.Count = model.Count;
             order.Sum = model.Sum;
             order.Status = model.Status;
@@ -128,6 +134,8 @@ namespace AutomobilePlantDatabaseImplement.Implements
             {
                 Id = order.Id,
                 CarId = order.CarId,
+                ClientId = order.ClientId,
+                ClientFullName = order.Client.FullName,
                 CarName = order.Car.CarName,
                 Count = order.Count,
                 Sum = order.Sum,
