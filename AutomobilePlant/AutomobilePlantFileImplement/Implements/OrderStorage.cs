@@ -33,10 +33,11 @@ namespace AutomobilePlantFileImplement.Implements
                 return null;
             }
             return source.Orders
-            .Where(rec => rec.CarId == model.CarId || rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
-           .Select(CreateModel)
-           .OrderBy(rec => rec.DateCreate)
-           .ToList();
+            .Where(rec => rec.CarId.Equals(model.CarId) || (model.DateFrom.HasValue && model.DateTo.HasValue &&
+                rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
+                || model.ClientId.HasValue && rec.ClientId == model.ClientId.Value)
+                .Select(CreateModel)
+                .ToList();
         }
 
         public OrderViewModel GetElement(OrderBindingModel model)
@@ -83,6 +84,7 @@ namespace AutomobilePlantFileImplement.Implements
         private static Order CreateModel(OrderBindingModel model, Order order)
         {
             order.CarId = model.CarId;
+            order.ClientId = model.ClientId.Value;
             order.Count = model.Count;
             order.Sum = model.Sum;
             order.Status = model.Status;
@@ -106,6 +108,8 @@ namespace AutomobilePlantFileImplement.Implements
                 Id = order.Id,
                 CarId = order.CarId,
                 CarName = source.Cars.FirstOrDefault(rec => rec.Id == order.CarId)?.CarName,
+                ClientId = order.ClientId,
+                ClientFullName = source.Clients.FirstOrDefault(rec => rec.Id == order.ClientId)?.ClientFullName,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status.ToString(),

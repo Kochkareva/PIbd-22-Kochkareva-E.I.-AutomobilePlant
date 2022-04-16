@@ -17,11 +17,14 @@ namespace AutomobilePlantListImplement
 
         public List<Car> Cars { get; set; }
 
+        public List<Client> Clients { get; set; }
+
         private DataListSingleton()
         {
             Details = new List<Detail>();
             Orders = new List<Order>();
             Cars = new List<Car>();
+            Clients = new List<Client>();
         }
 
         public static DataListSingleton GetInstance()
