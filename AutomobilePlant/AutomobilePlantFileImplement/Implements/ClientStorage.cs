@@ -12,8 +12,6 @@ namespace AutomobilePlantFileImplement.Implements
 {
     public class ClientStorage : IClientStorage
     {
-
-
         private readonly FileDataListSingleton source;
 
         public ClientStorage()
@@ -34,7 +32,7 @@ namespace AutomobilePlantFileImplement.Implements
                 return null;
             }
             return source.Clients
-            .Where(rec => rec.Login.Contains(model.Login))
+            .Where(rec => rec.Login.Contains(model.Login) && rec.Password.Contains(model.Password))
            .Select(CreateModel)
            .ToList();
         }
