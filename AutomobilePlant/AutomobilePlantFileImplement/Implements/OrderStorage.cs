@@ -33,8 +33,9 @@ namespace AutomobilePlantFileImplement.Implements
                 return null;
             }
             return source.Orders
-            .Where(rec => rec.CarId == model.CarId)
+            .Where(rec => rec.CarId == model.CarId || rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
            .Select(CreateModel)
+           .OrderBy(rec => rec.DateCreate)
            .ToList();
         }
 
@@ -104,7 +105,7 @@ namespace AutomobilePlantFileImplement.Implements
             {
                 Id = order.Id,
                 CarId = order.CarId,
-                CarName = carsName,
+                CarName = source.Cars.FirstOrDefault(rec => rec.Id == order.CarId)?.CarName,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status.ToString(),

@@ -94,6 +94,9 @@ namespace AutomobilePlantView
             }
             try
             {
+                int cars = Convert.ToInt32(comboBoxCar.SelectedValue);
+                   int Counst = Convert.ToInt32(textBoxCount.Text);
+                    decimal Sums = Convert.ToDecimal(textBoxSum.Text);
                 _logicO.CreateOrder(new CreateOrderBindingModel
                 {
                     CarId = Convert.ToInt32(comboBoxCar.SelectedValue),

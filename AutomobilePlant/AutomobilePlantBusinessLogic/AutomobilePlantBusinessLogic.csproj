@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.8.1" />
+    <PackageReference Include="PdfSharp.MigraDoc.Standard" Version="1.51.15" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\AutomobilePlantContracts\AutomobilePlantContracts.csproj" />
   </ItemGroup>
 

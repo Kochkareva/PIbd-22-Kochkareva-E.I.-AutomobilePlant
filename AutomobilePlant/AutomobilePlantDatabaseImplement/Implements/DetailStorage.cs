@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutomobilePlantContracts.BindingModels;
 using AutomobilePlantContracts.StoragesContracts;
 using AutomobilePlantContracts.ViewModels;
@@ -38,16 +36,17 @@ namespace AutomobilePlantDatabaseImplement.Implements
                 return null;
             }
             using var context = new AutomobilePlantDatabase();
-            var component = context.Details
+            var detail = context.Details
             .FirstOrDefault(rec => rec.DetailName == model.DetailName || rec.Id
            == model.Id);
-            return component != null ? CreateModel(component) : null;
+            return detail != null ? CreateModel(detail) : null;
         }
         public void Insert(DetailBindingModel model)
         {
             using var context = new AutomobilePlantDatabase();
             context.Details.Add(CreateModel(model, new Detail()));
             context.SaveChanges();
+            
         }
         public void Update(DetailBindingModel model)
         {
@@ -79,12 +78,12 @@ namespace AutomobilePlantDatabaseImplement.Implements
             detail.DetailName = model.DetailName;
             return detail;
         }
-        private static DetailViewModel CreateModel(Detail component)
+        private static DetailViewModel CreateModel(Detail detail)
         {
             return new DetailViewModel
             {
-                Id = component.Id,
-                DetailName = component.DetailName
+                Id = detail.Id,
+                DetailName = detail.DetailName
             };
         }
     }
