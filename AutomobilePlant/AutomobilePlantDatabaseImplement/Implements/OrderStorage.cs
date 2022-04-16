@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutomobilePlantContracts.BindingModels;
 using AutomobilePlantContracts.StoragesContracts;
 using AutomobilePlantContracts.ViewModels;
@@ -28,7 +26,6 @@ namespace AutomobilePlantDatabaseImplement.Implements
                 DateCreate = rec.DateCreate,
                 DateImplement = rec.DateImplement
             }).ToList();
-
         }
         public List<OrderViewModel> GetFilteredList(OrderBindingModel model)
         {
@@ -38,7 +35,7 @@ namespace AutomobilePlantDatabaseImplement.Implements
             }
             using var context = new AutomobilePlantDatabase();
             return context.Orders.Include(rec => rec.Car)
-            .Where(rec => rec.CarId == model.CarId)
+            .Where(rec => rec.CarId == model.CarId || rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
            .Select(rec => new OrderViewModel
            {
                Id = rec.Id,
@@ -58,28 +55,48 @@ namespace AutomobilePlantDatabaseImplement.Implements
                 return null;
             }
             using var context = new AutomobilePlantDatabase();
-            var component = context.Orders
+            var order = context.Orders.Include(rec => rec.Car)
             .FirstOrDefault(rec => rec.Id == model.Id);
-            return component != null ? CreateModel(component) : null;
+            return order != null ? CreateModel(order) : null;
         }
 
         public void Insert(OrderBindingModel model)
         {
             using var context = new AutomobilePlantDatabase();
-            context.Orders.Add(CreateModel(model, new Order()));
-            context.SaveChanges();
+            using var transaction = context.Database.BeginTransaction();
+            try
+            {
+                context.Orders.Add(CreateModel(model, new Order()));
+                context.SaveChanges();
+                transaction.Commit();
+            }
+            catch
+            {
+                transaction.Rollback();
+                throw;
+            }
         }
 
         public void Update(OrderBindingModel model)
         {
             using var context = new AutomobilePlantDatabase();
-            var element = context.Orders.FirstOrDefault(rec => rec.Id == model.Id);
-            if (element == null)
+            using var transaction = context.Database.BeginTransaction();
+            try
             {
-                throw new Exception("Элемент не найден");
+                var element = context.Orders.FirstOrDefault(rec => rec.Id == model.Id);
+                if (element == null)
+                {
+                    throw new Exception("Элемент не найден");
+                }
+                CreateModel(model, element);
+                context.SaveChanges();
+                transaction.Commit();
             }
-            CreateModel(model, element);
-            context.SaveChanges();
+            catch
+            {
+                transaction.Rollback();
+                throw;
+            }
         }
         public void Delete(OrderBindingModel model)
         {
@@ -114,7 +131,7 @@ namespace AutomobilePlantDatabaseImplement.Implements
                 CarName = order.Car.CarName,
                 Count = order.Count,
                 Sum = order.Sum,
-                Status = order.Status.ToString(),
+                Status = Enum.GetName(order.Status),
                 DateCreate = order.DateCreate,
                 DateImplement = order.DateImplement
             };
