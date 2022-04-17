@@ -15,12 +15,15 @@ namespace AutomobilePlantDatabaseImplement.Implements
         {
             using var context = new AutomobilePlantDatabase();
 
-            return context.Orders.Include(rec => rec.Car).Include(rec => rec.Client).Select(rec => new OrderViewModel
+            return context.Orders.Include(rec => rec.Car).Include(rec => rec.Client).Include(rec => rec.Implementer)
+            .Select(rec => new OrderViewModel
             {
                 Id = rec.Id,
                 CarId = rec.CarId,
                 ClientId = rec.ClientId,
                 ClientFullName = rec.Client.FullName,
+                ImplementerId = rec.ImplementerId,
+                ImplementerFullName = rec.ImplementerId.HasValue ? rec.Implementer.ImplementerFullName : string.Empty,
                 CarName = rec.Car.CarName,
                 Count = rec.Count,
                 Sum = rec.Sum,
@@ -36,15 +39,25 @@ namespace AutomobilePlantDatabaseImplement.Implements
                 return null;
             }
             using var context = new AutomobilePlantDatabase();
-            return context.Orders.Include(rec => rec.Car).Include(rec => rec.Client)
-            .Where(rec => (rec.CarId == model.CarId) || (model.DateFrom.HasValue && model.DateTo.HasValue &&
-            rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo) || (rec.ClientId == model.ClientId))
+            return context.Orders
+            .Include(rec => rec.Car)
+            .Include(rec => rec.Client)
+            .Include(rec => rec.Implementer)
+            .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date) ||
+                (model.DateFrom.HasValue && model.DateTo.HasValue &&
+                rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <=
+                model.DateTo.Value.Date) ||
+                (model.ClientId.HasValue && rec.ClientId == model.ClientId) ||
+                (model.SearchStatus.HasValue && model.SearchStatus.Value == rec.Status) ||
+                (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && model.Status == rec.Status))
            .Select(rec => new OrderViewModel
            {
                Id = rec.Id,
                CarId = rec.CarId,
                ClientId = rec.ClientId,
                ClientFullName = rec.Client.FullName,
+               ImplementerId = rec.ImplementerId,
+               ImplementerFullName = rec.ImplementerId.HasValue ? rec.Implementer.ImplementerFullName : string.Empty,
                CarName = rec.Car.CarName,
                Count = rec.Count,
                Sum = rec.Sum,
@@ -60,7 +73,7 @@ namespace AutomobilePlantDatabaseImplement.Implements
                 return null;
             }
             using var context = new AutomobilePlantDatabase();
-            var order = context.Orders.Include(rec => rec.Car).Include(rec => rec.Client)
+            var order = context.Orders.Include(rec => rec.Car).Include(rec => rec.Client).Include(rec => rec.Implementer)
             .FirstOrDefault(rec => rec.Id == model.Id);
             return order != null ? CreateModel(order) : null;
         }
@@ -121,6 +134,7 @@ namespace AutomobilePlantDatabaseImplement.Implements
         {
             order.CarId = model.CarId;
             order.ClientId = model.ClientId.Value;
+            order.ImplementerId = model.ImplementerId;
             order.Count = model.Count;
             order.Sum = model.Sum;
             order.Status = model.Status;
@@ -136,6 +150,8 @@ namespace AutomobilePlantDatabaseImplement.Implements
                 CarId = order.CarId,
                 ClientId = order.ClientId,
                 ClientFullName = order.Client.FullName,
+                ImplementerId = order.ImplementerId,
+                ImplementerFullName = order.ImplementerId.HasValue ? order.Implementer.ImplementerFullName : String.Empty,
                 CarName = order.Car.CarName,
                 Count = order.Count,
                 Sum = order.Sum,

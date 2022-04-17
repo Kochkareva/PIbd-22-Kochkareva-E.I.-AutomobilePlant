@@ -103,6 +103,28 @@ namespace AutomobilePlantDatabaseImplement.Migrations
                     b.ToTable("Details");
                 });
 
+            modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.Implementer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ImplementerFullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PauseTime")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WorkingTime")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Implementers");
+                });
+
             modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -125,6 +147,9 @@ namespace AutomobilePlantDatabaseImplement.Migrations
                     b.Property<DateTime?>("DateImplement")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("ImplementerId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -136,6 +161,8 @@ namespace AutomobilePlantDatabaseImplement.Migrations
                     b.HasIndex("CarId");
 
                     b.HasIndex("ClientId");
+
+                    b.HasIndex("ImplementerId");
 
                     b.ToTable("Orders");
                 });
@@ -173,9 +200,15 @@ namespace AutomobilePlantDatabaseImplement.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("AutomobilePlantDatabaseImplement.Models.Implementer", "Implementer")
+                        .WithMany("Orders")
+                        .HasForeignKey("ImplementerId");
+
                     b.Navigation("Car");
 
                     b.Navigation("Client");
+
+                    b.Navigation("Implementer");
                 });
 
             modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.Car", b =>
@@ -193,6 +226,11 @@ namespace AutomobilePlantDatabaseImplement.Migrations
             modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.Detail", b =>
                 {
                     b.Navigation("CarDetails");
+                });
+
+            modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.Implementer", b =>
+                {
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }
