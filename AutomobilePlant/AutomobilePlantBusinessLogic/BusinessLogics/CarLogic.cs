@@ -62,7 +62,7 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
             });
             if (element == null)
             {
-                throw new Exception("Элемент не найден");
+                throw new Exception("Автомобиль не найден");
             }
             _carStorage.Delete(model);
         }

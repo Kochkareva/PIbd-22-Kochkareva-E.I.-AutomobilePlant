@@ -131,15 +131,15 @@ namespace AutomobilePlantView
             // 
             this.компонентыToolStripMenuItem.Name = "компонентыToolStripMenuItem";
             this.компонентыToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.компонентыToolStripMenuItem.Text = "Компоненты";
-            this.компонентыToolStripMenuItem.Click += new System.EventHandler(this.КомпонентыToolStripMenuItem_Click);
+            this.компонентыToolStripMenuItem.Text = "Детали";
+            this.компонентыToolStripMenuItem.Click += new System.EventHandler(this.ДеталиToolStripMenuItem_Click);
             // 
             // изделияToolStripMenuItem
             // 
             this.изделияToolStripMenuItem.Name = "изделияToolStripMenuItem";
             this.изделияToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.изделияToolStripMenuItem.Text = "Изделия";
-            this.изделияToolStripMenuItem.Click += new System.EventHandler(this.ИзделияToolStripMenuItem_Click);
+            this.изделияToolStripMenuItem.Text = "Автомобили";
+            this.изделияToolStripMenuItem.Click += new System.EventHandler(this.АвтомобилиToolStripMenuItem_Click);
             // 
             // складыToolStripMenuItem
             // 

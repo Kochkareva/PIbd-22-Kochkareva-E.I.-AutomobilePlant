@@ -16,7 +16,7 @@ namespace AutomobilePlantContracts.ViewModels
 
         public int CarId { get; set; }
 
-        [DisplayName("Изделие")]
+        [DisplayName("Автомобиль")]
         public string CarName { get; set; }
 
         [DisplayName("Количество")]

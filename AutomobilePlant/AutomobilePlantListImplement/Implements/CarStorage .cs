@@ -22,9 +22,9 @@ namespace AutomobilePlantListImplement.Implements
         public List<CarViewModel> GetFullList()
         {
             var result = new List<CarViewModel>();
-            foreach (var details in source.Cars)
+            foreach (var car in source.Cars)
             {
-                result.Add(CreateModel(details));
+                result.Add(CreateModel(car));
             }
             return result;
         }
@@ -91,7 +91,7 @@ namespace AutomobilePlantListImplement.Implements
             }
             if (tempCar == null)
             {
-                throw new Exception("Элемент не найден");
+                throw new Exception("Автомобиль не найден");
             }
             CreateModel(model, tempCar);
         }
@@ -140,7 +140,7 @@ namespace AutomobilePlantListImplement.Implements
 
         private CarViewModel CreateModel(Car car)
         {
-            // требуется дополнительно получить список компонентов для изделия с названиями и их количество
+            // требуется дополнительно получить список деталей для автомобиля с названиями и их количество
             var carDetails = new Dictionary<int, (string, int)>();
             foreach (var cd in car.CarDetails)
             {

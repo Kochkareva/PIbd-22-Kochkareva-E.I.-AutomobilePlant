@@ -194,7 +194,7 @@ namespace AutomobilePlantView
             this.Controls.Add(this.label1);
             this.Name = "FormCar";
             this.Text = "Автомобиль";
-            this.Load += new System.EventHandler(this.FormProduct_Load);
+            this.Load += new System.EventHandler(this.FormCar_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);

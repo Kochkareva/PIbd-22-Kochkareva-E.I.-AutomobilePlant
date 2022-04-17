@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace AutomobilePlantListImplement.Models
 {
     /// <summary>
-    /// Изделие, изготавливаемое в магазине
+    /// Автомобиль, изготавливаемый на автомобильном заводе
     /// </summary>
     public class Car
     {

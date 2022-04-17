@@ -55,7 +55,7 @@ namespace AutomobilePlantView
             }
             if (comboBoxDetail.SelectedValue == null)
             {
-                MessageBox.Show("Выберите компонент", "Ошибка", MessageBoxButtons.OK,
+                MessageBox.Show("Выберите деталь", "Ошибка", MessageBoxButtons.OK,
                MessageBoxIcon.Error);
                 return;
             }

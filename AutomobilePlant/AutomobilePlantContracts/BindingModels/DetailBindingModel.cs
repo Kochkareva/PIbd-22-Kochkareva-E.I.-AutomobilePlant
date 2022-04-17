@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace AutomobilePlantContracts.BindingModels
 {
     /// <summary>
-    /// Компонент, требуемый для изготовления изделия
+    /// Деталь, требуемая для изготовления автомобиля
     /// </summary>
     public class DetailBindingModel
     {

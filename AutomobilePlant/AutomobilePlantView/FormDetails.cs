@@ -24,7 +24,7 @@ namespace AutomobilePlantView
             _logic = logic;
         }
 
-        private void FormComponents_Load(object sender, EventArgs e)
+        private void FormDetails_Load(object sender, EventArgs e)
         {
             LoadData();
         }
@@ -96,11 +96,6 @@ namespace AutomobilePlantView
         private void buttonRef_Click(object sender, EventArgs e)
         {
             LoadData();
-        }
-
-        private void FormDetails_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

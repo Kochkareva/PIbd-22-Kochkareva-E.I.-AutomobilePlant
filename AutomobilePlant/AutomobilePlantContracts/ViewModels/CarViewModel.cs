@@ -8,13 +8,13 @@ using System.ComponentModel;
 namespace AutomobilePlantContracts.ViewModels
 {
     // <summary>
-    /// Изделие, изготавливаемое в магазине
+    /// Автомобиль, изготавливаемый на автомобильном заводе
     /// </summary>
     public class CarViewModel
     {
         public int Id { get; set; }
 
-        [DisplayName("Название изделия")]
+        [DisplayName("Название автомобиля")]
         public string CarName { get; set; }
 
         [DisplayName("Цена")]

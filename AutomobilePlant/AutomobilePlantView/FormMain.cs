@@ -50,12 +50,12 @@ namespace AutomobilePlantView
             }
         }
 
-        private void КомпонентыToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ДеталиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Program.Container.Resolve<FormDetails>();
             form.ShowDialog();
         }
-        private void ИзделияToolStripMenuItem_Click(object sender, EventArgs e)
+        private void АвтомобилиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Program.Container.Resolve<FormCars>();
             form.ShowDialog();
