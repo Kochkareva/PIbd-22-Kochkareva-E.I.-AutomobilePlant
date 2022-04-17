@@ -1,7 +1,7 @@
 ﻿
 namespace AutomobilePlantView
 {
-    partial class FormCars
+    partial class FormWarehouses
     {
         /// <summary>
         /// Required designer variable.
@@ -44,12 +44,12 @@ namespace AutomobilePlantView
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowHeadersWidth = 51;
             this.dataGridView.RowTemplate.Height = 29;
-            this.dataGridView.Size = new System.Drawing.Size(574, 426);
+            this.dataGridView.Size = new System.Drawing.Size(511, 426);
             this.dataGridView.TabIndex = 0;
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(621, 50);
+            this.buttonAdd.Location = new System.Drawing.Point(550, 29);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(94, 29);
             this.buttonAdd.TabIndex = 1;
@@ -59,7 +59,7 @@ namespace AutomobilePlantView
             // 
             // buttonUpd
             // 
-            this.buttonUpd.Location = new System.Drawing.Point(621, 118);
+            this.buttonUpd.Location = new System.Drawing.Point(550, 79);
             this.buttonUpd.Name = "buttonUpd";
             this.buttonUpd.Size = new System.Drawing.Size(94, 29);
             this.buttonUpd.TabIndex = 2;
@@ -69,7 +69,7 @@ namespace AutomobilePlantView
             // 
             // buttonDel
             // 
-            this.buttonDel.Location = new System.Drawing.Point(621, 189);
+            this.buttonDel.Location = new System.Drawing.Point(550, 130);
             this.buttonDel.Name = "buttonDel";
             this.buttonDel.Size = new System.Drawing.Size(94, 29);
             this.buttonDel.TabIndex = 3;
@@ -79,7 +79,7 @@ namespace AutomobilePlantView
             // 
             // buttonRef
             // 
-            this.buttonRef.Location = new System.Drawing.Point(621, 261);
+            this.buttonRef.Location = new System.Drawing.Point(550, 183);
             this.buttonRef.Name = "buttonRef";
             this.buttonRef.Size = new System.Drawing.Size(94, 29);
             this.buttonRef.TabIndex = 4;
@@ -87,18 +87,19 @@ namespace AutomobilePlantView
             this.buttonRef.UseVisualStyleBackColor = true;
             this.buttonRef.Click += new System.EventHandler(this.buttonRef_Click);
             // 
-            // FormCars
+            // FormWarehouses
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(690, 450);
             this.Controls.Add(this.buttonRef);
             this.Controls.Add(this.buttonDel);
             this.Controls.Add(this.buttonUpd);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.dataGridView);
-            this.Name = "FormCars";
-            this.Text = "Автомобили";
+            this.Name = "FormWarehouses";
+            this.Text = "Склады";
+            this.Load += new System.EventHandler(this.FormWarehouses_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
 

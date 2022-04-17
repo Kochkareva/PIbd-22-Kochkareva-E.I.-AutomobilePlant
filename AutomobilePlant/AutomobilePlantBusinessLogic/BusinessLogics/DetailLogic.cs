@@ -25,11 +25,14 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
             {
                 return _detailStorage.GetFullList();
             }
+
             if (model.Id.HasValue)
             {
                 return new List<DetailViewModel> { _detailStorage.GetElement(model) };
             }
+
             return _detailStorage.GetFilteredList(model);
+
         }
 
         public void CreateOrUpdate(DetailBindingModel model)
@@ -40,7 +43,7 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
             });
             if (element != null && element.Id != model.Id)
             {
-                throw new Exception("Уже есть деталь с таким названием");
+                throw new Exception("Уже есть компонент с таким названием");
             }
             if (model.Id.HasValue)
             {
@@ -60,7 +63,7 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
             });
             if (element == null)
             {
-                throw new Exception("Деталь не найдена");
+                throw new Exception("Элемент не найден");
             }
             _detailStorage.Delete(model);
         }

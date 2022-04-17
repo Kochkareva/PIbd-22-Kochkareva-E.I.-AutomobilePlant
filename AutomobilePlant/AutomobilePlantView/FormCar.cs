@@ -24,13 +24,14 @@ namespace AutomobilePlantView
 
         private Dictionary<int, (string, int)> carDetails;
 
+
         public FormCar(ICarLogic logic)
         {
             InitializeComponent();
             _logic = logic;
         }
 
-        private void FormCar_Load(object sender, EventArgs e)
+        private void FormProduct_Load(object sender, EventArgs e)
         {
             if (id.HasValue)
             {
@@ -44,7 +45,6 @@ namespace AutomobilePlantView
                     {
                         textBoxName.Text = view.CarName;
                         textBoxPrice.Text = view.Price.ToString();
-                        carDetails = view.CarDetails;
                         LoadData();
                     }
                 }
@@ -59,7 +59,6 @@ namespace AutomobilePlantView
                 carDetails = new Dictionary<int, (string, int)>();
             }
         }
-
         private void LoadData()
         {
             try
@@ -69,7 +68,7 @@ namespace AutomobilePlantView
                     dataGridView.Rows.Clear();
                     foreach (var cd in carDetails)
                     {
-                        dataGridView.Rows.Add(new object[] {cd.Key, cd.Value.Item1, cd.Value.Item2 });
+                        dataGridView.Rows.Add(new object[] { cd.Value.Item1, cd.Value.Item2 });
                     }
                 }
             }
@@ -151,7 +150,7 @@ namespace AutomobilePlantView
             }
             if (carDetails == null || carDetails.Count == 0)
             {
-                MessageBox.Show("Заполните детали", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Заполните компоненты", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             try

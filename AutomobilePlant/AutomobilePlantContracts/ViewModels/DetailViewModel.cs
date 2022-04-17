@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 namespace AutomobilePlantContracts.ViewModels
 {
     /// <summary>
-    /// Деталь, требуемая для изготовления автомобиля
+    /// Компонент, требуемый для изготовления изделия
     /// </summary>
     public class DetailViewModel
     {
         public int Id { get; set; }
 
-        [DisplayName("Название детали")]
+        [DisplayName("Название компонента")]
         public string DetailName { get; set; }
     }
 }

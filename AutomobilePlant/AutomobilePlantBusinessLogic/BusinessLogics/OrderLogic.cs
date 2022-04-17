@@ -26,6 +26,7 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
             {
                 return _orderStorage.GetFullList();
             }
+
             if (model.Id.HasValue)
             {
                 return new List<OrderViewModel> { _orderStorage.GetElement(model) };

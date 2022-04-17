@@ -27,7 +27,7 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
             }
             if (model.Id.HasValue)
             {
-                return new List<CarViewModel> { _carStorage.GetElement(model) };
+                return new List<CarViewModel> { _carStorage.GetElement(model)};
             }
             return _carStorage.GetFilteredList(model);
         }
@@ -36,7 +36,9 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
         {
             var element = _carStorage.GetElement(new CarBindingModel
             {
-                CarName = model.CarName
+                CarName = model.CarName,
+                Price = model.Price,
+                CarDetails = model.CarDetails
             });
             if (element != null && element.Id != model.Id)
             {
@@ -60,7 +62,7 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
             });
             if (element == null)
             {
-                throw new Exception("Автомобиль не найден");
+                throw new Exception("Элемент не найден");
             }
             _carStorage.Delete(model);
         }

@@ -37,13 +37,12 @@ namespace AutomobilePlantView
             this.buttonUpd = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.DetailName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Count = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.textBoxPrice = new System.Windows.Forms.TextBox();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DetailName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Count = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -124,7 +123,6 @@ namespace AutomobilePlantView
             // 
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
             this.DetailName,
             this.Count});
             this.dataGridView.Location = new System.Drawing.Point(6, 26);
@@ -133,6 +131,20 @@ namespace AutomobilePlantView
             this.dataGridView.RowTemplate.Height = 29;
             this.dataGridView.Size = new System.Drawing.Size(421, 299);
             this.dataGridView.TabIndex = 0;
+            // 
+            // DetailName
+            // 
+            this.DetailName.HeaderText = "Детали";
+            this.DetailName.MinimumWidth = 6;
+            this.DetailName.Name = "DetailName";
+            this.DetailName.Width = 125;
+            // 
+            // Count
+            // 
+            this.Count.HeaderText = "Количество";
+            this.Count.MinimumWidth = 6;
+            this.Count.Name = "Count";
+            this.Count.Width = 125;
             // 
             // textBoxName
             // 
@@ -168,28 +180,6 @@ namespace AutomobilePlantView
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Id";
-            this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.Visible = false;
-            this.dataGridViewTextBoxColumn1.Width = 125;
-            // 
-            // DetailName
-            // 
-            this.DetailName.HeaderText = "Деталь";
-            this.DetailName.MinimumWidth = 6;
-            this.DetailName.Name = "DetailName";
-            this.DetailName.Width = 125;
-            // 
-            // Count
-            // 
-            this.Count.HeaderText = "Количество";
-            this.Count.MinimumWidth = 6;
-            this.Count.Name = "Count";
-            this.Count.Width = 125;
-            // 
             // FormCar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -204,7 +194,7 @@ namespace AutomobilePlantView
             this.Controls.Add(this.label1);
             this.Name = "FormCar";
             this.Text = "Автомобиль";
-            this.Load += new System.EventHandler(this.FormCar_Load);
+            this.Load += new System.EventHandler(this.FormProduct_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
@@ -226,7 +216,6 @@ namespace AutomobilePlantView
         private System.Windows.Forms.TextBox textBoxPrice;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn DetailName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Count;
     }
