@@ -105,10 +105,10 @@ namespace AutomobilePlantListImplement.Implements
             throw new Exception("Элемент не найден");
         }
 
-        private static Detail CreateModel(DetailBindingModel model, Detail detail)
+        private static Detail CreateModel(DetailBindingModel model, Detail details)
         {
-            detail.DetailName = model.DetailName;
-            return detail;
+            details.DetailName = model.DetailName;
+            return details;
         }
 
         private static DetailViewModel CreateModel(Detail details)

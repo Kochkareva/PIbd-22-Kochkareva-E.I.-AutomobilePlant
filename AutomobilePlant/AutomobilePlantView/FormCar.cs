@@ -59,7 +59,6 @@ namespace AutomobilePlantView
                 carDetails = new Dictionary<int, (string, int)>();
             }
         }
-
         private void LoadData()
         {
             try
@@ -69,7 +68,7 @@ namespace AutomobilePlantView
                     dataGridView.Rows.Clear();
                     foreach (var cd in carDetails)
                     {
-                        dataGridView.Rows.Add(new object[] {cd.Key, cd.Value.Item1, cd.Value.Item2 });
+                        dataGridView.Rows.Add(new object[] { cd.Value.Item1, cd.Value.Item2 });
                     }
                 }
             }
