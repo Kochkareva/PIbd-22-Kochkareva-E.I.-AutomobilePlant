@@ -91,20 +91,11 @@ namespace AutomobilePlantFileImplement.Implements
         }
         private OrderViewModel CreateModel(Order order)
         {
-            string carsName = string.Empty;
-            foreach (var cars in source.Cars)
-            {
-                if (order.CarId == cars.Id)
-                {
-                    carsName = cars.CarName;
-                    break;
-                }
-            }
             return new OrderViewModel
             {
                 Id = order.Id,
                 CarId = order.CarId,
-                CarName = carsName,
+                CarName = source.Cars.FirstOrDefault(rec => rec.Id == order.CarId)?.CarName,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status.ToString(),

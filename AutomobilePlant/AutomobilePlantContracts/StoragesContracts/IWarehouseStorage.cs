@@ -21,5 +21,7 @@ namespace AutomobilePlantContracts.StoragesContracts
         void Update(WarehouseBindingModel model);
 
         void Delete(WarehouseBindingModel model);
+
+        bool CheckCountDetails(Dictionary<int, (string, int)> details, int detailCount);
     }
 }

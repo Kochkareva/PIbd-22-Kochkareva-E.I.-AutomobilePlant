@@ -14,10 +14,14 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
     public class OrderLogic : IOrderLogic
     {
         private readonly IOrderStorage _orderStorage;
+        private readonly ICarStorage _carStorage;
+        private readonly IWarehouseStorage _warehouseStorage;
 
-        public OrderLogic(IOrderStorage orderStorage)
+        public OrderLogic(IOrderStorage orderStorage, ICarStorage carStorage, IWarehouseStorage warehouseStorage)
         {
             _orderStorage = orderStorage;
+            _carStorage = carStorage;
+            _warehouseStorage = warehouseStorage;
         }
 
         public List<OrderViewModel> Read(OrderBindingModel model)
@@ -59,6 +63,13 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
             if (!order.Status.Equals("Принят"))
             {
                 throw new Exception("Заказ еще не принят");
+            }
+            if (!_warehouseStorage.CheckCountDetails(_carStorage.GetElement(new CarBindingModel
+            {
+                Id = order.CarId
+            }).CarDetails, order.Count))
+            {
+                throw new Exception("Недостаточно материалов");
             }
             _orderStorage.Update(new OrderBindingModel
             {
