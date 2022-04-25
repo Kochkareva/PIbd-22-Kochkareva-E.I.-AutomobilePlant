@@ -112,7 +112,7 @@ namespace AutomobilePlantListImplement.Implements
         
         public bool CheckCountDetails(Dictionary<int, (string, int)> details, int detailCount)
         {
-            return true;
+            throw new NotImplementedException();
         }
 
         private Warehouse CreateModel(WarehouseBindingModel model, Warehouse warehouse)
