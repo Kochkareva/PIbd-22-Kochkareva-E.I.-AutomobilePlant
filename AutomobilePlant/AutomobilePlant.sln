@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomobilePlantView", "AutomobilePlantView\AutomobilePlantView.csproj", "{2E2E30F4-9896-4F5E-BB41-3E10D0AF9CD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomobilePlantView", "AutomobilePlantView\AutomobilePlantView.csproj", "{2E2E30F4-9896-4F5E-BB41-3E10D0AF9CD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomobilePlantContracts", "AutomobilePlantContracts\AutomobilePlantContracts.csproj", "{02851780-FA24-4C18-B0EC-DCF5E2F7FE6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomobilePlantContracts", "AutomobilePlantContracts\AutomobilePlantContracts.csproj", "{02851780-FA24-4C18-B0EC-DCF5E2F7FE6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomobilePlantBusinessLogic", "AutomobilePlantBusinessLogic\AutomobilePlantBusinessLogic.csproj", "{2DC5E95F-86F3-4A49-96CB-DF034DB2B773}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomobilePlantBusinessLogic", "AutomobilePlantBusinessLogic\AutomobilePlantBusinessLogic.csproj", "{2DC5E95F-86F3-4A49-96CB-DF034DB2B773}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomobilePlantListImplement", "AutomobilePlantListImplement\AutomobilePlantListImplement.csproj", "{FCD0F0B2-58BB-4A12-9E62-ADF212C93105}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomobilePlantListImplement", "AutomobilePlantListImplement\AutomobilePlantListImplement.csproj", "{FCD0F0B2-58BB-4A12-9E62-ADF212C93105}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomobilePlantFileImplement", "AutomobilePlantFileImplement\AutomobilePlantFileImplement.csproj", "{B3CDC0A6-6706-4C7A-89F8-DD3AEB49256B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{FCD0F0B2-58BB-4A12-9E62-ADF212C93105}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCD0F0B2-58BB-4A12-9E62-ADF212C93105}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCD0F0B2-58BB-4A12-9E62-ADF212C93105}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3CDC0A6-6706-4C7A-89F8-DD3AEB49256B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3CDC0A6-6706-4C7A-89F8-DD3AEB49256B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3CDC0A6-6706-4C7A-89F8-DD3AEB49256B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3CDC0A6-6706-4C7A-89F8-DD3AEB49256B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
