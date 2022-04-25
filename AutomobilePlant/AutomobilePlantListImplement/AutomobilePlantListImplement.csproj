@@ -1,11 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\AutomobilePlantContracts\AutomobilePlantContracts.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\AutomobilePlantContracts\AutomobilePlantContracts.csproj" />
+		<ProjectReference Include="..\AutomobilePlantFileImplement\AutomobilePlantFileImplement.csproj" />
+	</ItemGroup>
 
 </Project>
