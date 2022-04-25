@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomobilePlantBusinessLogi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomobilePlantListImplement", "AutomobilePlantListImplement\AutomobilePlantListImplement.csproj", "{FCD0F0B2-58BB-4A12-9E62-ADF212C93105}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomobilePlantFileImplement", "AutomobilePlantFileImplement\AutomobilePlantFileImplement.csproj", "{02F8EE80-2721-4C11-8392-13AB9AC77B93}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomobilePlantFileImplement", "AutomobilePlantFileImplement\AutomobilePlantFileImplement.csproj", "{2CA5B20B-5358-4924-8775-4294CD3BC96C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +35,10 @@ Global
 		{FCD0F0B2-58BB-4A12-9E62-ADF212C93105}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCD0F0B2-58BB-4A12-9E62-ADF212C93105}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCD0F0B2-58BB-4A12-9E62-ADF212C93105}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CA5B20B-5358-4924-8775-4294CD3BC96C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CA5B20B-5358-4924-8775-4294CD3BC96C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CA5B20B-5358-4924-8775-4294CD3BC96C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CA5B20B-5358-4924-8775-4294CD3BC96C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
