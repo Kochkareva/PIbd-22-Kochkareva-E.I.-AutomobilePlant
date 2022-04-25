@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AutomobilePlantBusinessLogic\AutomobilePlantBusinessLogic.csproj" />
-    <ProjectReference Include="..\AutomobilePlantFileImplement\AutomobilePlantFileImplement.csproj" />
   </ItemGroup>
 
 </Project>
