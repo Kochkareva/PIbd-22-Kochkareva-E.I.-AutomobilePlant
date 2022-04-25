@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomobilePlantBusinessLogi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomobilePlantListImplement", "AutomobilePlantListImplement\AutomobilePlantListImplement.csproj", "{FCD0F0B2-58BB-4A12-9E62-ADF212C93105}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomobilePlantFileImplement", "AutomobilePlantFileImplement\AutomobilePlantFileImplement.csproj", "{02F8EE80-2721-4C11-8392-13AB9AC77B93}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
