@@ -108,7 +108,12 @@ namespace AutomobilePlantListImplement.Implements
                 }
             }
             throw new Exception("Элемент не найден");
-        }            
+        }    
+        
+        public bool CheckCountDetails(Dictionary<int, (string, int)> details, int detailCount)
+        {
+            throw new NotImplementedException();
+        }
 
         private Warehouse CreateModel(WarehouseBindingModel model, Warehouse warehouse)
         {
