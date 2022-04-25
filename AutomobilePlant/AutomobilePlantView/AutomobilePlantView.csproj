@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AutomobilePlantBusinessLogic\AutomobilePlantBusinessLogic.csproj" />
-	ка<ProjectReference Include="..\AutomobilePlantFileImplement\AutomobilePlantFileImplement.csproj" />
+	<ProjectReference Include="..\AutomobilePlantFileImplement\AutomobilePlantFileImplement.csproj" />
   </ItemGroup>
 
 </Project>
