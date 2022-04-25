@@ -7,5 +7,5 @@
   <ItemGroup>
     <ProjectReference Include="..\AutomobilePlantContracts\AutomobilePlantContracts.csproj" />
   </ItemGroup>
-
+:(
 </Project>
