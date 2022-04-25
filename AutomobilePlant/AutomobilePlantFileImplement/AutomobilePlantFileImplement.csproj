@@ -8,4 +8,4 @@
     <ProjectReference Include="..\AutomobilePlantContracts\AutomobilePlantContracts.csproj" />
   </ItemGroup>
 
-</Project>
+ </Project>
