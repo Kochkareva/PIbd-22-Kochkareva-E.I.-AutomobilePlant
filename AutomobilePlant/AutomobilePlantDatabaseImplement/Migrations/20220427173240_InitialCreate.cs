@@ -35,6 +35,21 @@ namespace AutomobilePlantDatabaseImplement.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Warehouses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    WarehouseName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OwnerFullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateCreate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Warehouses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Orders",
                 columns: table => new
                 {
@@ -85,6 +100,33 @@ namespace AutomobilePlantDatabaseImplement.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "WarehouseDetails",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    WarehouseId = table.Column<int>(type: "int", nullable: false),
+                    DetailId = table.Column<int>(type: "int", nullable: false),
+                    Count = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WarehouseDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WarehouseDetails_Details_DetailId",
+                        column: x => x.DetailId,
+                        principalTable: "Details",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_WarehouseDetails_Warehouses_WarehouseId",
+                        column: x => x.WarehouseId,
+                        principalTable: "Warehouses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_CarDetails_CarId",
                 table: "CarDetails",
@@ -99,6 +141,16 @@ namespace AutomobilePlantDatabaseImplement.Migrations
                 name: "IX_Orders_CarId",
                 table: "Orders",
                 column: "CarId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WarehouseDetails_DetailId",
+                table: "WarehouseDetails",
+                column: "DetailId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WarehouseDetails_WarehouseId",
+                table: "WarehouseDetails",
+                column: "WarehouseId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -110,10 +162,16 @@ namespace AutomobilePlantDatabaseImplement.Migrations
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Details");
+                name: "WarehouseDetails");
 
             migrationBuilder.DropTable(
                 name: "Cars");
+
+            migrationBuilder.DropTable(
+                name: "Details");
+
+            migrationBuilder.DropTable(
+                name: "Warehouses");
         }
     }
 }
