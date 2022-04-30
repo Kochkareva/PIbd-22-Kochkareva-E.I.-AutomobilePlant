@@ -6,8 +6,8 @@ using System.Windows.Forms;
 using AutomobilePlantBusinessLogic.BusinessLogics;
 using AutomobilePlantContracts.BusinessLogicsContracts;
 using AutomobilePlantContracts.StoragesContracts;
-using AutomobilePlantFileImplement.Implements;
-using AutomobilePlantFileImplement;
+using AutomobilePlantDatabaseImplement.Implements;
+using AutomobilePlantDatabaseImplement;
 using Unity;
 using Unity.Lifetime;
 
@@ -39,7 +39,6 @@ namespace AutomobilePlantView
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run((Container.Resolve<FormMain>()));
-            FileDataListSingleton.SaveFileDataListSingleton();
         }
 
         private static IUnityContainer BuildUnityContainer()

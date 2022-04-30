@@ -47,7 +47,7 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
                 Sum = model.Sum,
                 Status = OrderStatus.Принят,
                 DateCreate = DateTime.Now,
-            }); ;
+            }); 
         }
 
         public void TakeOrderInWork(ChangeStatusBindingModel model)
