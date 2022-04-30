@@ -5,16 +5,21 @@ using AutomobilePlantContracts.BusinessLogicsContracts;
 using AutomobilePlantContracts.StoragesContracts;
 using AutomobilePlantContracts.ViewModels;
 using AutomobilePlantContracts.Enums;
+using AutomobilePlantBusinessLogic.MailWorker;
 
 namespace AutomobilePlantBusinessLogic.BusinessLogics
 {
     public class OrderLogic : IOrderLogic
     {
         private readonly IOrderStorage _orderStorage;
+        private readonly IClientStorage _clientStorage;
+        private readonly AbstractMailWorker _abstractMailWorker;
 
-        public OrderLogic(IOrderStorage orderStorage)
+        public OrderLogic(IOrderStorage orderStorage, IClientStorage clientStorage, AbstractMailWorker abstractMailWorker)
         {
             _orderStorage = orderStorage;
+            _clientStorage = clientStorage;
+            _abstractMailWorker = abstractMailWorker;
         }
 
         public List<OrderViewModel> Read(OrderBindingModel model)
@@ -41,6 +46,15 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
                 Sum = model.Sum,
                 Status = OrderStatus.Принят,
                 DateCreate = DateTime.Now,
+            });
+            _abstractMailWorker.MailSendAsync(new MailSendInfoBindingModel
+            {
+                MailAddress = _clientStorage.GetElement(new ClientBindingModel
+                {
+                    Id = model.ClientId
+                })?.Login,
+                Subject = "Заказ создан",
+                Text = $"Дата заказа: {DateTime.Now} Сумма заказа: {model.Sum}"
             });
         }
 
@@ -70,6 +84,15 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
                 DateCreate = order.DateCreate,
                 DateImplement = DateTime.Now
             });
+            _abstractMailWorker.MailSendAsync(new MailSendInfoBindingModel
+            {
+                MailAddress = _clientStorage.GetElement(new ClientBindingModel
+                {
+                    Id = order.ClientId
+                })?.Login,
+                Subject = $"Заказ {order.Id}",
+                Text = $"Заказ {order.Id} передан в работу"
+            });
         }
 
         public void FinishOrder(ChangeStatusBindingModel model)
@@ -98,6 +121,15 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
                 DateCreate = order.DateCreate,
                 DateImplement = DateTime.Now
             });
+            _abstractMailWorker.MailSendAsync(new MailSendInfoBindingModel
+            {
+                MailAddress = _clientStorage.GetElement(new ClientBindingModel
+                {
+                    Id = order.ClientId
+                })?.Login,
+                Subject = $"Заказ {order.Id}",
+                Text = $"Заказ {order.Id} готов"
+            });
         }
 
         public void DeliveryOrder(ChangeStatusBindingModel model)
@@ -125,6 +157,15 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
                 Status = OrderStatus.Выдан,
                 DateCreate = order.DateCreate,
                 DateImplement = DateTime.Now
+            });
+            _abstractMailWorker.MailSendAsync(new MailSendInfoBindingModel
+            {
+                MailAddress = _clientStorage.GetElement(new ClientBindingModel
+                {
+                    Id = order.ClientId
+                })?.Login,
+                Subject = $"Заказ {order.Id}",
+                Text = $"Заказ {order.Id} выдан"
             });
         }
     }
