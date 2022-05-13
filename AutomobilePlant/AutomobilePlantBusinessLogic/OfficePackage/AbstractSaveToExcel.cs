@@ -1,5 +1,11 @@
-﻿using AutomobilePlantBusinessLogic.OfficePackage.HelperEnums;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using AutomobilePlantBusinessLogic.OfficePackage.HelperEnums;
 using AutomobilePlantBusinessLogic.OfficePackage.HelperModels;
+
 
 namespace AutomobilePlantBusinessLogic.OfficePackage
 {
@@ -11,7 +17,7 @@ namespace AutomobilePlantBusinessLogic.OfficePackage
         /// <param name="info"></param>
         public void CreateReport(ExcelInfo info)
         {
-            CreateExcel(info);
+            CreateExcel(info.FileName);
             InsertCellInWorksheet(new ExcelCellParameters
             {
                 ColumnName = "A",
@@ -62,13 +68,68 @@ namespace AutomobilePlantBusinessLogic.OfficePackage
                 });
                 rowIndex++;
             }
-            SaveExcel(info);
+            SaveExcel(info.FileName);
+        }
+        public void CreateReportWarehouse(ExcelInfoWarehouse info)
+        {
+            CreateExcel(info.FileName);
+            InsertCellInWorksheet(new ExcelCellParameters
+            {
+                ColumnName = "A",
+                RowIndex = 1,
+                Text = info.Title,
+                StyleInfo = ExcelStyleInfoType.Title
+            });
+            MergeCells(new ExcelMergeParameters
+            {
+                CellFromName = "A1",
+                CellToName = "C1"
+            });
+            uint rowIndex = 2;
+            foreach (var wd in info.WarehouseDetails)
+            {
+                InsertCellInWorksheet(new ExcelCellParameters
+                {
+                    ColumnName = "A",
+                    RowIndex = rowIndex,
+                    Text = wd.WarehouseName,
+                    StyleInfo = ExcelStyleInfoType.Text
+                });
+                rowIndex++;
+                foreach (var detail in wd.Details)
+                {
+                    InsertCellInWorksheet(new ExcelCellParameters
+                    {
+                        ColumnName = "B",
+                        RowIndex = rowIndex,
+                        Text = detail.Item1,
+                        StyleInfo = ExcelStyleInfoType.TextWithBroder
+                    });
+                    InsertCellInWorksheet(new ExcelCellParameters
+                    {
+                        ColumnName = "C",
+                        RowIndex = rowIndex,
+                        Text = detail.Item2.ToString(),
+                        StyleInfo = ExcelStyleInfoType.TextWithBroder
+                    });
+                    rowIndex++;
+                }
+                InsertCellInWorksheet(new ExcelCellParameters
+                {
+                    ColumnName = "C",
+                    RowIndex = rowIndex,
+                    Text = wd.TotalCount.ToString(),
+                    StyleInfo = ExcelStyleInfoType.Text
+                });
+                rowIndex++;
+            }
+            SaveExcel(info.FileName);
         }
         /// <summary>
         /// Создание excel-файла
         /// </summary>
         /// <param name="info"></param>
-        protected abstract void CreateExcel(ExcelInfo info);
+        protected abstract void CreateExcel(string info);
         /// <summary>
         /// Добавляем новую ячейку в лист
         /// </summary>
@@ -84,6 +145,6 @@ namespace AutomobilePlantBusinessLogic.OfficePackage
         /// Сохранение файла
         /// </summary>
         /// <param name="info"></param>
-        protected abstract void SaveExcel(ExcelInfo info);
+        protected abstract void SaveExcel(string info);
     }
 }

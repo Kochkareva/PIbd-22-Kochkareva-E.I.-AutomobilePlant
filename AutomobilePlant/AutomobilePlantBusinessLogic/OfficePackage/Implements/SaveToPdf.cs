@@ -37,7 +37,7 @@ namespace AutomobilePlantBusinessLogic.OfficePackage.Implements
             style = document.Styles.AddStyle("NormalTitle", "Normal");
             style.Font.Bold = true;
         }
-        protected override void CreatePdf(PdfInfo info)
+        protected override void CreatePdf()
         {
             _document = new Document();
             DefineStyles(_document);
@@ -78,14 +78,14 @@ namespace AutomobilePlantBusinessLogic.OfficePackage.Implements
                 row.Cells[i].VerticalAlignment = VerticalAlignment.Center;
             }
         }
-        protected override void SavePdf(PdfInfo info)
+        protected override void SavePdf(string filename)
         {
             var renderer = new PdfDocumentRenderer(true)
             {
                 Document = _document
             };
             renderer.RenderDocument();
-            renderer.PdfDocument.Save(info.FileName);
+            renderer.PdfDocument.Save(filename);
         }
     }
 }

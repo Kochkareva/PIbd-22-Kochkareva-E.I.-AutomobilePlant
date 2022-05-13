@@ -7,10 +7,10 @@ using AutomobilePlantContracts.ViewModels;
 
 namespace AutomobilePlantBusinessLogic.OfficePackage.HelperModels
 {
-    public class WordInfo
+    public class WordInfoWarehouses
     {
         public string FileName { get; set; }
         public string Title { get; set; }
-        public List<CarViewModel> Cars { get; set; }
+        public List<WarehouseViewModel> Warehouses { get; set; }
     }
 }

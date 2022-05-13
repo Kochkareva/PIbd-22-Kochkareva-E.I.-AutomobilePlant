@@ -17,7 +17,7 @@ namespace AutomobilePlantView
     public partial class FormCreateOrder : Form
     {
         private readonly ICarLogic _logicC;
-
+        
         private readonly IOrderLogic _logicO;
 
         public FormCreateOrder(ICarLogic logicC, IOrderLogic logicO)
@@ -41,7 +41,7 @@ namespace AutomobilePlantView
                     comboBoxCar.SelectedItem = null;
                 }
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }

@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using AutomobilePlantBusinessLogic.OfficePackage.HelperEnums;
 using AutomobilePlantBusinessLogic.OfficePackage.HelperModels;
 
@@ -9,7 +12,7 @@ namespace AutomobilePlantBusinessLogic.OfficePackage
     {
         public void CreateDoc(WordInfo info)
         {
-            CreateWord(info);
+            CreateWord(info.FileName);
             CreateParagraph(new WordParagraph
             {
                 Texts = new List<(string, WordTextProperties)> { (info.Title, new
@@ -34,13 +37,42 @@ WordTextProperties { Bold = true, Size = "24", }) },
                     }
                 });
             }
-            SaveWord(info);
+            SaveWord();
+        }
+
+        public void CreateTableDoc(WordInfoWarehouses info)
+        {
+            CreateWord(info.FileName);
+            CreateParagraph(new WordParagraph
+            {
+                Texts = new List<(string, WordTextProperties)> { (info.Title, new
+WordTextProperties { Bold = true, Size = "24", }) },
+                TextProperties = new WordTextProperties
+                {
+                    Size = "24",
+                    JustificationType = WordJustificationType.Center
+                }
+            });
+            CreateTable(new List<string>()
+            {
+                 "Название склада", "ФИО отвественного", "Дата создания"
+            });
+            foreach (var warehouse in info.Warehouses)
+            {
+                CreateRow(new List<string>()
+               {
+                  warehouse.WarehouseName,
+                  warehouse.OwnerFullName,
+                  warehouse.DateCreate.ToString()
+               });
+            }
+            SaveWord();
         }
         /// <summary>
         /// Создание doc-файла
         /// </summary>
         /// <param name="info"></param>
-        protected abstract void CreateWord(WordInfo info);
+        protected abstract void CreateWord(string info);
         /// <summary>
         /// Создание абзаца с текстом
         /// </summary>
@@ -51,7 +83,16 @@ WordTextProperties { Bold = true, Size = "24", }) },
         /// Сохранение файла
         /// </summary>
         /// <param name="info"></param>
-        protected abstract void SaveWord(WordInfo info);
-
+        protected abstract void SaveWord();
+        /// <summary>
+        /// Создание строки таблицы с текстом
+        /// </summary>
+        /// <param name="tableRow"></param>
+        protected abstract void CreateRow(List<string> tableRow);
+        /// <summary>
+        /// Создание заголовка таблицы с текстом
+        /// </summary>
+        /// <param name="tableHeader"></param>
+        protected abstract void CreateTable(List<string> tableHeader);
     }
 }

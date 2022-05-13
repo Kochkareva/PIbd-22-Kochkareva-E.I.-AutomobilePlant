@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using AutomobilePlantContracts.BindingModels;
 using AutomobilePlantContracts.StoragesContracts;
 using AutomobilePlantContracts.ViewModels;
@@ -113,7 +115,8 @@ namespace AutomobilePlantDatabaseImplement.Implements
             car.Price = model.Price;
             if (model.Id.HasValue)
             {
-                var carDetails = context.CarDetails.Where(rec => rec.CarId == model.Id.Value).ToList();
+                var carDetails = context.CarDetails.Where(rec =>
+               rec.CarId == model.Id.Value).ToList();
                 // удалили те, которых нет в модели
                 context.CarDetails.RemoveRange(carDetails.Where(rec =>
                !model.CarDetails.ContainsKey(rec.DetailId)).ToList());
@@ -128,13 +131,13 @@ namespace AutomobilePlantDatabaseImplement.Implements
                 context.SaveChanges();
             }
             // добавили новые
-            foreach (var cd in model.CarDetails)
+            foreach (var pc in model.CarDetails)
             {
                 context.CarDetails.Add(new CarDetail
                 {
                     CarId = car.Id,
-                    DetailId = cd.Key,
-                    Count = cd.Value.Item2
+                    DetailId = pc.Key,
+                    Count = pc.Value.Item2
                 });
                 context.SaveChanges();
             }
@@ -148,8 +151,8 @@ namespace AutomobilePlantDatabaseImplement.Implements
                 CarName = car.CarName,
                 Price = car.Price,
                 CarDetails = car.CarDetails
-            .ToDictionary(recCD => recCD.DetailId,
-            recCD => (recCD.Detail?.DetailName, recCD.Count))
+            .ToDictionary(recPC => recPC.DetailId,
+            recPC => (recPC.Detail?.DetailName, recPC.Count))
             };
         }
     }

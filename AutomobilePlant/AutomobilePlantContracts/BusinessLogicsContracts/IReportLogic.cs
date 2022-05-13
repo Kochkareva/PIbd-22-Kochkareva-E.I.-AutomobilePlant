@@ -33,5 +33,18 @@ namespace AutomobilePlantContracts.BusinessLogicsContracts
         /// </summary>
         /// <param name="model"></param>
         void SaveOrdersToPdfFile(ReportBindingModel model);
+        /// <summary>
+        /// Сохранение складов в файл-Word
+        /// </summary>
+        /// <param name="model"></param>
+        void SaveWarehousesToWordFile(ReportBindingModel model);
+        /// <summary>
+        /// Получение списка складов с указанием, какие детали хранятся
+        /// </summary>
+        /// <returns></returns>
+        List<ReportWarehouseDetailsViewModel> GetWarehouseDetails();
+        void SaveWarehouseDetailsToExcelFile(ReportBindingModel model);
+        void SaveOrdersDateToPdfFile(ReportBindingModel model);
+        List<ReportOrdersDateViewModel> GetOrdersDate();
     }
 }

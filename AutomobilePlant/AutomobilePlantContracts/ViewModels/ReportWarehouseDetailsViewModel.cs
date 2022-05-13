@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace AutomobilePlantContracts.ViewModels
 {
-    public class ReportCarDetailViewModel
+    public class ReportWarehouseDetailsViewModel
     {
-        public string CarName { get; set; }
+        public string WarehouseName { get; set; }
         public int TotalCount { get; set; }
         public List<Tuple<string, int>> Details { get; set; }
     }

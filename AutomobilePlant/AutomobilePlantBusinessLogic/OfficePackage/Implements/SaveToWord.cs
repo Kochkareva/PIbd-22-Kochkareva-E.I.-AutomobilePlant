@@ -15,6 +15,7 @@ namespace AutomobilePlantBusinessLogic.OfficePackage.Implements
     {
         private WordprocessingDocument _wordDocument;
         private Body _docBody;
+        private Table _table;
         /// <summary>
         /// Получение типа выравнивания
         /// </summary>
@@ -78,9 +79,9 @@ namespace AutomobilePlantBusinessLogic.OfficePackage.Implements
             }
             return null;
         }
-        protected override void CreateWord(WordInfo info)
+        protected override void CreateWord(string info)
         {
-            _wordDocument = WordprocessingDocument.Create(info.FileName,
+            _wordDocument = WordprocessingDocument.Create(info,
            WordprocessingDocumentType.Document);
             MainDocumentPart mainPart = _wordDocument.AddMainDocumentPart();
             mainPart.Document = new Document();
@@ -114,11 +115,89 @@ namespace AutomobilePlantBusinessLogic.OfficePackage.Implements
                 _docBody.AppendChild(docParagraph);
             }
         }
-        protected override void SaveWord(WordInfo info)
+        protected override void SaveWord()
         {
             _docBody.AppendChild(CreateSectionProperties());
             _wordDocument.MainDocumentPart.Document.Save();
             _wordDocument.Close();
+        }
+
+        /// <summary>
+        /// Создание строки таблицы с текстом
+        /// </summary>
+        /// <param name="tableRow"></param>
+        protected override void CreateRow(List<string> tableRowInfo)
+        {
+            TableRow tableRow = new TableRow();
+            foreach(string cellText in tableRowInfo)
+            {
+                TableCell tableCell = new TableCell();
+                tableRow.Append(new TableCellProperties(
+                    new TableCellWidth()
+                    {
+                        Type = TableWidthUnitValues.Dxa,
+                        Width = "3400"
+                    }));
+                tableRow.Append(new Paragraph(new Run(new Text(cellText))));
+                tableRow.Append(tableCell);
+            }
+            _table.Append(tableRow);
+        }
+        /// <summary>
+        /// Создание заголовка таблицы с текстом
+        /// </summary>
+        /// <param name="tableHeader"></param>
+        protected override void CreateTable(List<string> tableHeader)
+        {
+            _table = new Table();
+            TableProperties tblProp = new TableProperties(
+                new TableBorders(
+                    new TopBorder
+                    {
+                        Val = new EnumValue<BorderValues>(BorderValues.Single),
+                        Size = 14
+                    },
+                    new BottomBorder
+                    {
+                        Val = new EnumValue<BorderValues>(BorderValues.Single),
+                        Size = 14
+                    },
+                    new LeftBorder
+                    {
+                        Val = new EnumValue<BorderValues>(BorderValues.Single),
+                        Size = 14
+                    },
+                    new RightBorder
+                    {
+                        Val = new EnumValue<BorderValues>(BorderValues.Single),
+                        Size = 14
+                    },
+                    new InsideHorizontalBorder
+                    {
+                        Val = new EnumValue<BorderValues>(BorderValues.Single),
+                        Size = 10
+                    },
+                    new InsideVerticalBorder
+                    {
+                        Val = new EnumValue<BorderValues>(BorderValues.Single),
+                        Size = 12
+                    }
+                )
+            );
+            _table.AppendChild(tblProp);
+            TableRow tableRowHeader = new TableRow();
+
+            foreach (string stringHeaderCell in tableHeader)
+            {
+                TableCell cellHeader = new TableCell();
+                cellHeader.Append(new TableCellProperties(
+                new TableCellWidth() { Type = TableWidthUnitValues.Dxa, Width = "3400" }));
+                cellHeader.Append(new Paragraph(new ParagraphProperties(new Justification() { Val = JustificationValues.Center }), new Run(new RunProperties(new Bold()), new Text(stringHeaderCell))));
+                tableRowHeader.Append(cellHeader);
+            }
+
+            _table.Append(tableRowHeader);
+            _docBody.AppendChild(_table);
         }
     }
 }

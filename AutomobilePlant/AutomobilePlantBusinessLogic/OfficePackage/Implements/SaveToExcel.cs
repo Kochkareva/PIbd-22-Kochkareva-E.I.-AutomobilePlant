@@ -11,7 +11,6 @@ using DocumentFormat.OpenXml.Office2013.Excel;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 
-
 namespace AutomobilePlantBusinessLogic.OfficePackage.Implements
 {
     public class SaveToExcel : AbstractSaveToExcel
@@ -156,16 +155,18 @@ namespace AutomobilePlantBusinessLogic.OfficePackage.Implements
             var stylesheetExtensionList = new StylesheetExtensionList();
             var stylesheetExtension1 = new StylesheetExtension()
             {
-                Uri = "{EB79DEF2-80B8-43e5 - 95BD - 54CBDDF9020C}" };
- stylesheetExtension1.AddNamespaceDeclaration("x14","http://schemas.microsoft.com/office/spreadsheetml/2009/9/main");
+                Uri = "{EB79DEF2-80B8-43e5 - 95BD - 54CBDDF9020C}"
+            };
+            stylesheetExtension1.AddNamespaceDeclaration("x14", "http://schemas.microsoft.com/office/spreadsheetml/2009/9/main");
             stylesheetExtension1.Append(new SlicerStyles()
             {
                 DefaultSlicerStyle = "SlicerStyleLight1"
             });
             var stylesheetExtension2 = new StylesheetExtension()
             {
-                Uri = "{9260A510-F301-46a8 - 8635 - F512D64BE5F5}" };
- stylesheetExtension2.AddNamespaceDeclaration("x15","http://schemas.microsoft.com/office/spreadsheetml/2010/11/main");
+                Uri = "{9260A510-F301-46a8 - 8635 - F512D64BE5F5}"
+            };
+            stylesheetExtension2.AddNamespaceDeclaration("x15", "http://schemas.microsoft.com/office/spreadsheetml/2010/11/main");
             stylesheetExtension2.Append(new TimelineStyles()
             {
                 DefaultTimelineStyle = "TimeSlicerStyleLight1"
@@ -197,9 +198,9 @@ namespace AutomobilePlantBusinessLogic.OfficePackage.Implements
                 _ => 0U,
             };
         }
-        protected override void CreateExcel(ExcelInfo info)
+        protected override void CreateExcel(string filename)
         {
-            _spreadsheetDocument = SpreadsheetDocument.Create(info.FileName,
+            _spreadsheetDocument = SpreadsheetDocument.Create(filename,
            SpreadsheetDocumentType.Workbook);
             // Создаем книгу (в ней хранятся листы)
             var workbookpart = _spreadsheetDocument.AddWorkbookPart();
@@ -303,7 +304,7 @@ namespace AutomobilePlantBusinessLogic.OfficePackage.Implements
             };
             mergeCells.Append(mergeCell);
         }
-        protected override void SaveExcel(ExcelInfo info)
+        protected override void SaveExcel(string info)
         {
             _spreadsheetDocument.WorkbookPart.Workbook.Save();
             _spreadsheetDocument.Close();
