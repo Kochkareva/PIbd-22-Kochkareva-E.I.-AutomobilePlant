@@ -38,7 +38,7 @@ namespace AutomobilePlantDatabaseImplement.Implements
             }
             using var context = new AutomobilePlantDatabase();
             return context.Orders.Include(rec => rec.Car)
-            .Where(rec => rec.CarId == model.CarId)
+            .Where(rec => rec.CarId == model.CarId || rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
            .Select(rec => new OrderViewModel
            {
                Id = rec.Id,

@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AutomobilePlantContracts.ViewModels
+{
+    public class ReportCarDetailViewModel
+    {
+        public string CarName { get; set; }
+        public int TotalCount { get; set; }
+        public List<Tuple<string, int>> Details { get; set; }
+    }
+}

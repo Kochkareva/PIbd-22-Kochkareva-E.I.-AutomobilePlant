@@ -10,6 +10,8 @@ using AutomobilePlantDatabaseImplement.Implements;
 using AutomobilePlantDatabaseImplement;
 using Unity;
 using Unity.Lifetime;
+using AutomobilePlantBusinessLogic.OfficePackage;
+using AutomobilePlantBusinessLogic.OfficePackage.Implements;
 
 namespace AutomobilePlantView
 {
@@ -59,6 +61,11 @@ namespace AutomobilePlantView
             currentContainer.RegisterType<ICarLogic, CarLogic>(new
             HierarchicalLifetimeManager());
             currentContainer.RegisterType<IWarehouseLogic, WarehouseLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<AbstractSaveToExcel, SaveToExcel>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<AbstractSaveToPdf, SaveToPdf>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<AbstractSaveToWord, SaveToWord>(new HierarchicalLifetimeManager());
+
+            currentContainer.RegisterType<IReportLogic, ReportLogic>(new HierarchicalLifetimeManager());
             return currentContainer;
         }
     }
