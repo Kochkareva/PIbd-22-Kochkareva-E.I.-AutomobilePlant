@@ -33,8 +33,9 @@ namespace AutomobilePlantFileImplement.Implements
                 return null;
             }
             return source.Orders
-            .Where(rec => rec.CarId == model.CarId)
+            .Where(rec => rec.CarId == model.CarId || rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
            .Select(CreateModel)
+           .OrderBy(rec => rec.DateCreate)
            .ToList();
         }
 
