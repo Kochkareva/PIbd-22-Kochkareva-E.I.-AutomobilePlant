@@ -33,7 +33,9 @@ namespace AutomobilePlantFileImplement.Implements
                 return null;
             }
             return source.Orders
-            .Where(rec => rec.CarId == model.CarId || rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
+            .Where(rec => rec.CarId.Equals(model.CarId) || (model.DateFrom.HasValue && model.DateTo.HasValue &&
+            rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
+            || model.ClientId.HasValue && rec.ClientId == model.ClientId.Value)
            .Select(CreateModel)
            .ToList();
         }

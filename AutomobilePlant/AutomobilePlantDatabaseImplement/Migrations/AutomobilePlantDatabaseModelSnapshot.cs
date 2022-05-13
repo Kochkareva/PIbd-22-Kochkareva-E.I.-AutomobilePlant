@@ -63,6 +63,30 @@ namespace AutomobilePlantDatabaseImplement.Migrations
                     b.ToTable("CarDetails");
                 });
 
+            modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.Client", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Login")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Clients");
+                });
+
             modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.Detail", b =>
                 {
                     b.Property<int>("Id")
@@ -89,6 +113,9 @@ namespace AutomobilePlantDatabaseImplement.Migrations
                     b.Property<int>("CarId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
@@ -108,55 +135,9 @@ namespace AutomobilePlantDatabaseImplement.Migrations
 
                     b.HasIndex("CarId");
 
+                    b.HasIndex("ClientId");
+
                     b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.Warehouse", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DateCreate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("OwnerFullName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("WarehouseName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Warehouses");
-                });
-
-            modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.WarehouseDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DetailId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WarehouseId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DetailId");
-
-                    b.HasIndex("WarehouseId");
-
-                    b.ToTable("WarehouseDetails");
                 });
 
             modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.CarDetail", b =>
@@ -186,26 +167,15 @@ namespace AutomobilePlantDatabaseImplement.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("AutomobilePlantDatabaseImplement.Models.Client", "Client")
+                        .WithMany("Orders")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Car");
-                });
 
-            modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.WarehouseDetail", b =>
-                {
-                    b.HasOne("AutomobilePlantDatabaseImplement.Models.Detail", "Detail")
-                        .WithMany("WarehouseDetails")
-                        .HasForeignKey("DetailId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AutomobilePlantDatabaseImplement.Models.Warehouse", "Warehouse")
-                        .WithMany("WarehouseDetails")
-                        .HasForeignKey("WarehouseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Detail");
-
-                    b.Navigation("Warehouse");
+                    b.Navigation("Client");
                 });
 
             modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.Car", b =>
@@ -215,16 +185,14 @@ namespace AutomobilePlantDatabaseImplement.Migrations
                     b.Navigation("Order");
                 });
 
+            modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.Client", b =>
+                {
+                    b.Navigation("Orders");
+                });
+
             modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.Detail", b =>
                 {
                     b.Navigation("CarDetails");
-
-                    b.Navigation("WarehouseDetails");
-                });
-
-            modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.Warehouse", b =>
-                {
-                    b.Navigation("WarehouseDetails");
                 });
 #pragma warning restore 612, 618
         }

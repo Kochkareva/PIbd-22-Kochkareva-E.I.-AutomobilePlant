@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutomobilePlantContracts.BindingModels;
 using AutomobilePlantContracts.BusinessLogicsContracts;
 using AutomobilePlantContracts.StoragesContracts;
@@ -14,14 +11,10 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
     public class OrderLogic : IOrderLogic
     {
         private readonly IOrderStorage _orderStorage;
-        private readonly ICarStorage _carStorage;
-        private readonly IWarehouseStorage _warehouseStorage;
 
-        public OrderLogic(IOrderStorage orderStorage, ICarStorage carStorage, IWarehouseStorage warehouseStorage)
+        public OrderLogic(IOrderStorage orderStorage)
         {
             _orderStorage = orderStorage;
-            _carStorage = carStorage;
-            _warehouseStorage = warehouseStorage;
         }
 
         public List<OrderViewModel> Read(OrderBindingModel model)
@@ -43,11 +36,12 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
             _orderStorage.Insert(new OrderBindingModel
             {
                 CarId = model.CarId,
+                ClientId = model.ClientId,
                 Count = model.Count,
                 Sum = model.Sum,
                 Status = OrderStatus.Принят,
                 DateCreate = DateTime.Now,
-            }); 
+            });
         }
 
         public void TakeOrderInWork(ChangeStatusBindingModel model)
@@ -64,17 +58,11 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
             {
                 throw new Exception("Заказ еще не принят");
             }
-            if (!_warehouseStorage.CheckCountDetails(_carStorage.GetElement(new CarBindingModel
-            {
-                Id = order.CarId
-            }).CarDetails, order.Count))
-            {
-                throw new Exception("Недостаточно материалов");
-            }
             _orderStorage.Update(new OrderBindingModel
             {
                 Id = order.Id,
                 CarId = order.CarId,
+                ClientId = order.ClientId,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = OrderStatus.Выполняется,
@@ -101,6 +89,7 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
             {
                 Id = order.Id,
                 CarId = order.CarId,
+                ClientId = order.ClientId,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = OrderStatus.Готов,
@@ -127,6 +116,7 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
             {
                 Id = order.Id,
                 CarId = order.CarId,
+                ClientId = order.ClientId,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = OrderStatus.Выдан,

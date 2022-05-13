@@ -15,12 +15,13 @@ namespace AutomobilePlantFileImplement
         private static FileDataListSingleton instance;
         private readonly string DetailFileName = "Detail.xml";
         private readonly string OrderFileName = "Order.xml";
-        private readonly string CarFileName = "Car.xml";
-        private readonly string WarehouseFileName = "Warehouse.xml";
+        private readonly string CarFileName = "Car.xml"; 
+        private readonly string ClientFileName = "Client.xml";
         public List<Detail> Details { get; set; }
         public List<Order> Orders { get; set; }
         public List<Car> Cars { get; set; }
-        public List<Warehouse> Warehouses { get; set; }
+        public List<Client> Clients { get; set; }
+
 
         public FileDataListSingleton()
         {

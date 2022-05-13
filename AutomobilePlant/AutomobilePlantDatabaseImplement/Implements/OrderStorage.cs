@@ -58,9 +58,9 @@ namespace AutomobilePlantDatabaseImplement.Implements
                 return null;
             }
             using var context = new AutomobilePlantDatabase();
-            var component = context.Orders.Include(rec => rec.Car)
+            var order = context.Orders.Include(rec => rec.Car).Include(rec => rec.Client)
             .FirstOrDefault(rec => rec.Id == model.Id);
-            return component != null ? CreateModel(component) : null;
+            return order != null ? CreateModel(component) : null;
         }
 
         public void Insert(OrderBindingModel model)
