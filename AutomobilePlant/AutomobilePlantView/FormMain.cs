@@ -42,6 +42,7 @@ namespace AutomobilePlantView
                     dataGridView.DataSource = list;
                     dataGridView.Columns[0].Visible = false;
                     dataGridView.Columns[1].Visible = false;
+                    dataGridView.Columns[2].Visible = false;
                     dataGridView.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
             }
@@ -158,40 +159,9 @@ namespace AutomobilePlantView
              form.ShowDialog();
         }
 
-        private void складыToolStripMenuItem_Click(object sender, EventArgs e)
+        private void клиентыToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Program.Container.Resolve<FormWarehouses>();
-            form.ShowDialog();
-        }
-
-        private void пополнениеСкладаToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var form = Program.Container.Resolve<FormFillingWarehouse>();
-            form.ShowDialog();
-        }
-
-        private void списокСкладовToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using var dialog = new SaveFileDialog { Filter = "docx|*.docx" };
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                _reportLogic.SaveWarehousesToWordFile(new ReportBindingModel
-                {
-                    FileName = dialog.FileName
-                });
-                MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
-        private void списокЗагруженностиСкладовToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var form = Program.Container.Resolve<FormReportWarehouseDetails>();
-            form.ShowDialog();
-        }
-
-        private void списокЗаказовПоДатамToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var form = Program.Container.Resolve<FormReportOrderDate>();
+            var form = Program.Container.Resolve<FormClients>();
             form.ShowDialog();
         }
     }
