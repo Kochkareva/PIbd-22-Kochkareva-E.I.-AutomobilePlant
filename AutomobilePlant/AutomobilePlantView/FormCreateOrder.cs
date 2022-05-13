@@ -20,11 +20,14 @@ namespace AutomobilePlantView
         
         private readonly IOrderLogic _logicO;
 
-        public FormCreateOrder(ICarLogic logicC, IOrderLogic logicO)
+        private readonly IClientLogic _logicCl;
+
+        public FormCreateOrder(ICarLogic logicC, IOrderLogic logicO, IClientLogic logicCl)
         {
             InitializeComponent();
             _logicC = logicC;
             _logicO = logicO;
+            _logicCl = logicCl;
         }
 
         private void FormCreateOrder_Load(object sender, EventArgs e)
@@ -39,6 +42,14 @@ namespace AutomobilePlantView
                     comboBoxCar.ValueMember = "Id";
                     comboBoxCar.DataSource = list;
                     comboBoxCar.SelectedItem = null;
+                }
+                List<ClientViewModel> listClient = _logicCl.Read(null);
+                if (listClient != null)
+                {
+                    comboBoxClient.DisplayMember = "FullName";
+                    comboBoxClient.ValueMember = "Id";
+                    comboBoxClient.DataSource = listClient;
+                    comboBoxClient.SelectedItem = null;
                 }
             }
             catch(Exception ex)
@@ -92,6 +103,12 @@ namespace AutomobilePlantView
                MessageBoxIcon.Error);
                 return;
             }
+            if(comboBoxClient.SelectedValue == null)
+            {
+                MessageBox.Show("Выберите клиента", "Ошибка", MessageBoxButtons.OK,
+               MessageBoxIcon.Error);
+                return;
+            }
             try
             {
                 int cars = Convert.ToInt32(comboBoxCar.SelectedValue);
@@ -100,6 +117,7 @@ namespace AutomobilePlantView
                 _logicO.CreateOrder(new CreateOrderBindingModel
                 {
                     CarId = Convert.ToInt32(comboBoxCar.SelectedValue),
+                    ClientId = Convert.ToInt32(comboBoxClient.SelectedValue),
                     Count = Convert.ToInt32(textBoxCount.Text),
                     Sum = Convert.ToDecimal(textBoxSum.Text)
                 });
