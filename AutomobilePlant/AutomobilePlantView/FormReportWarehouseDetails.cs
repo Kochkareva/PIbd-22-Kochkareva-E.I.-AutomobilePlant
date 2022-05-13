@@ -18,7 +18,6 @@ namespace AutomobilePlantView
         public FormReportWarehouseDetails(IReportLogic logic)
         {
             InitializeComponent();
-
             _logic = logic;
         }
 
