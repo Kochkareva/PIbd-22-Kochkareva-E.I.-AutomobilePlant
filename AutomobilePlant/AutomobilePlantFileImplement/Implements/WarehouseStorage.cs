@@ -95,18 +95,15 @@ namespace AutomobilePlantFileImplement.Implements
                     return false;
                 }
             }
-
             foreach (var detailsWarehouse in details)
             {
                 int count = detailsWarehouse.Value.Item2 * detailCount;
-                IEnumerable<Warehouse> warehouses = source.Warehouses
+                var warehouses = source.Warehouses
                     .Where(rec => rec.WarehouseDetails
                     .ContainsKey(detailsWarehouse.Key));
-
                 foreach (var warehouse in warehouses)
                 {
-                    if (warehouse
-                        .WarehouseDetails[detailsWarehouse.Key] <= count)
+                    if (warehouse.WarehouseDetails[detailsWarehouse.Key] <= count)
                     {
                         count -= warehouse.WarehouseDetails[detailsWarehouse.Key];
                         warehouse.WarehouseDetails.Remove(detailsWarehouse.Key);
