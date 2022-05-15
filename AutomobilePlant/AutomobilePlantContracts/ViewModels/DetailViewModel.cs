@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using AutomobilePlantContracts.Attributes;
+using System.ComponentModel;
 
 namespace AutomobilePlantContracts.ViewModels
 {
@@ -9,7 +10,7 @@ namespace AutomobilePlantContracts.ViewModels
     {
         public int Id { get; set; }
 
-        [DisplayName("Название детали")]
+        [Column(title: "Название детали", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string DetailName { get; set; }
     }
 }

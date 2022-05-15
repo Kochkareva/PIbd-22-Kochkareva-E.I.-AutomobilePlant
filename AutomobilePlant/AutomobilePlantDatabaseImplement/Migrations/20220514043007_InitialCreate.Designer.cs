@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AutomobilePlantDatabaseImplement.Migrations
 {
     [DbContext(typeof(AutomobilePlantDatabase))]
-    [Migration("20220428071153_InitialCreate")]
+    [Migration("20220514043007_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
