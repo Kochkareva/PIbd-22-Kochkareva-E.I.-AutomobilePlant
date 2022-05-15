@@ -15,6 +15,7 @@ using AutomobilePlantBusinessLogic.BusinessLogics;
 using AutomobilePlantContracts.BusinessLogicsContracts;
 using AutomobilePlantContracts.StoragesContracts;
 using AutomobilePlantDatabaseImplement.Implements;
+using M6T.Core.TupleModelBinder;
 
 namespace AutomobilePlantRestApi
 {
@@ -33,15 +34,22 @@ namespace AutomobilePlantRestApi
             services.AddTransient<IClientStorage, ClientStorage>();
             services.AddTransient<IOrderStorage, OrderStorage>();
             services.AddTransient<ICarStorage, CarStorage>();
-
+            services.AddTransient<IDetailStorage, DetailStorage>();
+            services.AddTransient<IWarehouseStorage, WarehouseStorage>();
             services.AddTransient<IOrderLogic, OrderLogic>();
             services.AddTransient<IClientLogic, ClientLogic>();
             services.AddTransient<ICarLogic, CarLogic>();
+            services.AddTransient<IWarehouseLogic, WarehouseLogic>();
+            services.AddTransient<IDetailLogic, DetailLogic>();
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AutomobilePlantRestApi", Version = "v1" });
+            });
+            services.AddMvc(options =>
+            {
+                options.ModelBinderProviders.Insert(0, new TupleModelBinderProvider());
             });
         }
 

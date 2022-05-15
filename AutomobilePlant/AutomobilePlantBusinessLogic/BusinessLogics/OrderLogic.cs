@@ -11,10 +11,14 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
     public class OrderLogic : IOrderLogic
     {
         private readonly IOrderStorage _orderStorage;
+        private readonly ICarStorage _carStorage;
+        private readonly IWarehouseStorage _warehouseStorage;
 
-        public OrderLogic(IOrderStorage orderStorage)
+        public OrderLogic(IOrderStorage orderStorage, ICarStorage carStorage, IWarehouseStorage warehouseStorage)
         {
             _orderStorage = orderStorage;
+            _carStorage = carStorage;
+            _warehouseStorage = warehouseStorage;
         }
 
         public List<OrderViewModel> Read(OrderBindingModel model)
@@ -36,11 +40,11 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
             _orderStorage.Insert(new OrderBindingModel
             {
                 CarId = model.CarId,
-                ClientId = model.ClientId,
                 Count = model.Count,
                 Sum = model.Sum,
                 Status = OrderStatus.Принят,
                 DateCreate = DateTime.Now,
+                ClientId = model.ClientId,
             });
         }
 
@@ -58,16 +62,23 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
             {
                 throw new Exception("Заказ еще не принят");
             }
+            if (!_warehouseStorage.CheckCountDetails(_carStorage.GetElement(new CarBindingModel
+            {
+                Id = order.CarId
+            }).CarDetails, order.Count))
+            {
+                throw new Exception("Недостаточно материалов");
+            }
             _orderStorage.Update(new OrderBindingModel
             {
                 Id = order.Id,
                 CarId = order.CarId,
-                ClientId = order.ClientId,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = OrderStatus.Выполняется,
                 DateCreate = order.DateCreate,
-                DateImplement = DateTime.Now
+                DateImplement = DateTime.Now,
+                ClientId = order.ClientId,
             });
         }
 
@@ -89,12 +100,13 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
             {
                 Id = order.Id,
                 CarId = order.CarId,
-                ClientId = order.ClientId,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = OrderStatus.Готов,
                 DateCreate = order.DateCreate,
-                DateImplement = DateTime.Now
+                DateImplement = DateTime.Now,
+                ClientId = order.ClientId,
+
             });
         }
 
@@ -116,12 +128,12 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
             {
                 Id = order.Id,
                 CarId = order.CarId,
-                ClientId = order.ClientId,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = OrderStatus.Выдан,
                 DateCreate = order.DateCreate,
-                DateImplement = DateTime.Now
+                DateImplement = DateTime.Now,
+                ClientId = order.ClientId,
             });
         }
     }

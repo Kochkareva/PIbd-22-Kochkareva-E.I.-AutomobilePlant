@@ -134,7 +134,7 @@ namespace AutomobilePlantListImplement.Implements
             string ClientFullName = string.Empty;
             foreach(var client in source.Clients)
             {
-                if(order.CarId == client.Id)
+                if(order.ClientId == client.Id)
                 {
                     ClientFullName = client.ClientFullName;
                     break;

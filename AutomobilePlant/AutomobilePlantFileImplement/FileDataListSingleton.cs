@@ -17,17 +17,19 @@ namespace AutomobilePlantFileImplement
         private readonly string OrderFileName = "Order.xml";
         private readonly string CarFileName = "Car.xml";
         private readonly string ClientFileName = "Client.xml";
+        private readonly string WarehouseFileName = "Warehouse.xml";
         public List<Detail> Details { get; set; }
         public List<Order> Orders { get; set; }
         public List<Car> Cars { get; set; }
         public List<Client> Clients { get; set; }
-
+        public List<Warehouse> Warehouses { get; set; }
         public FileDataListSingleton()
         {
             Details = LoadDetails();
             Orders = LoadOrders();
             Cars = LoadCars();
             Clients = LoadClients();
+            Warehouses = LoadWarehouse();
         }
 
         public static FileDataListSingleton GetInstance()
@@ -45,6 +47,7 @@ namespace AutomobilePlantFileImplement
             instance.SaveOrders();
             instance.SaveCars();
             instance.SaveClients();
+            instance.SaveWarehouses();
         }
 
         private List<Detail> LoadDetails()
@@ -141,6 +144,37 @@ namespace AutomobilePlantFileImplement
             return list;
         }
 
+        private List<Warehouse> LoadWarehouse()
+        {
+            var list = new List<Warehouse>();
+            if (File.Exists(WarehouseFileName))
+            {
+                var xDocument = XDocument.Load(WarehouseFileName);
+                var xElements = xDocument.Root.Elements("Warehouse").ToList();
+                foreach (var warehouse in xElements)
+                {
+                    var warehouseDetails = new Dictionary<int, int>();
+                    foreach (var detail in
+                        warehouse.Element("WarehouseDetails")
+                        .Elements("WarehouseDetail").ToList())
+                    {
+                        warehouseDetails.Add(Convert.ToInt32(detail.Element("Key").Value),
+                        Convert.ToInt32(detail.Element("Value").Value));
+                    }
+
+                    list.Add(new Warehouse
+                    {
+                        Id = Convert.ToInt32(warehouse.Attribute("Id").Value),
+                        WarehouseName = warehouse.Element("WarehouseName").Value,
+                        OwnerFullName = warehouse.Element("OwnerFullName").Value,
+                        DateCreate = Convert.ToDateTime(warehouse.Element("DateCreate").Value),
+                        WarehouseDetails = warehouseDetails
+                    });
+                }
+            }
+            return list;
+        }
+
         private void SaveDetails()
         {
             if (Details != null)
@@ -219,6 +253,32 @@ namespace AutomobilePlantFileImplement
                 }
                 XDocument xDocument = new XDocument(xElement);
                 xDocument.Save(ClientFileName);
+            }
+        }
+
+        private void SaveWarehouses()
+        {
+            if (Warehouses != null)
+            {
+                var xElement = new XElement("Warehouses");
+                foreach (var warehouse in Warehouses)
+                {
+                    var warehouseDetails = new XElement("WarehouseDetails");
+                    foreach (var detail in warehouse.WarehouseDetails)
+                    {
+                        warehouseDetails.Add(new XElement("WarehouseDetail",
+                            new XElement("Key", detail.Key),
+                            new XElement("Value", detail.Value)));
+                    }
+                    xElement.Add(new XElement("Warehouse",
+                        new XAttribute("Id", warehouse.Id),
+                        new XElement("WarehouseName", warehouse.WarehouseName),
+                        new XElement("OwnerFullName", warehouse.OwnerFullName),
+                        new XElement("DateCreate", warehouse.DateCreate.ToString()),
+                        warehouseDetails));
+                }
+                var xDocument = new XDocument(xElement);
+                xDocument.Save(WarehouseFileName);
             }
         }
     }

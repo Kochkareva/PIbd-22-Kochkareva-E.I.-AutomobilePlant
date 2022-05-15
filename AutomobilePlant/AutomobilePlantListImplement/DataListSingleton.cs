@@ -19,12 +19,15 @@ namespace AutomobilePlantListImplement
 
         public List<Client> Clients { get; set; }
 
+        public List<Warehouse> Warehouses { get; set; }
+
         private DataListSingleton()
         {
             Details = new List<Detail>();
             Orders = new List<Order>();
             Cars = new List<Car>();
-            Clients = new List<Client>();
+            Clients = new List<Client>(); 
+            Warehouses = new List<Warehouse>();
         }
 
         public static DataListSingleton GetInstance()

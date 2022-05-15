@@ -23,5 +23,7 @@ namespace AutomobilePlantDatabaseImplement
         public virtual DbSet<CarDetail> CarDetails { set; get; }
         public virtual DbSet<Order> Orders { set; get; }
         public virtual DbSet<Client> Clients { set; get; }
+        public virtual DbSet<Warehouse> Warehouses { get; set; }
+        public virtual DbSet<WarehouseDetail> WarehouseDetails { get; set; }
     }
 }

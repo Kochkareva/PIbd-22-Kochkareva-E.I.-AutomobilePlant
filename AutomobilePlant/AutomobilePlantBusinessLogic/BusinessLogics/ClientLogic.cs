@@ -56,7 +56,7 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
             });
             if (element == null)
             {
-                throw new Exception("Клиент не найдена");
+                throw new Exception("Клиент не найден");
             }
             _clientStorage.Delete(model);
         }
