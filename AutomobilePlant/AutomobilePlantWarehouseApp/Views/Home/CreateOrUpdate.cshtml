@@ -1,0 +1,79 @@
+﻿@using AutomobilePlantContracts.ViewModels;
+@model WarehouseViewModel
+
+@{
+    ViewData["Title"] = "CreateOrUpdate";
+}
+<hr />
+
+@{
+    if (Model == null)
+    {
+        <h1>Создание склада</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Create" method="post">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="WarehouseName" placeholder="Название" />
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="OwnerFullName" placeholder="ФИО ответственного"  />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Создать" class="btn btn-primary" />
+                        <a style="margin-left: 10px;" asp-action="Index">Назад</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    }
+    else
+    {
+        <h1>Изменение склада</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Update" method="post">
+                    <input type="hidden" name="Id" value="@Model.Id" />
+                    <input type="hidden" name="WarehouseDetails" value="@Model.WarehouseDetails" />
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="WarehouseName" value="@Model.WarehouseName" />
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="OwnerFullName" value="@Model.OwnerFullName"  />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Сохранить" class="btn btn-primary" />
+                        <a style="margin-left: 10px;" asp-action="Index">Отмена</a>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-8">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Деталь
+                            </th>
+                            <th>
+                                Количество
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.WarehouseDetails)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Value.Item1)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Value.Item2)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+}

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutomobilePlantContracts.BindingModels;
 using AutomobilePlantContracts.BusinessLogicsContracts;
 using AutomobilePlantContracts.StoragesContracts;
@@ -47,7 +44,8 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
                 Sum = model.Sum,
                 Status = OrderStatus.Принят,
                 DateCreate = DateTime.Now,
-            }); 
+                ClientId = model.ClientId,
+            });
         }
 
         public void TakeOrderInWork(ChangeStatusBindingModel model)
@@ -79,7 +77,8 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
                 Sum = order.Sum,
                 Status = OrderStatus.Выполняется,
                 DateCreate = order.DateCreate,
-                DateImplement = DateTime.Now
+                DateImplement = DateTime.Now,
+                ClientId = order.ClientId,
             });
         }
 
@@ -105,7 +104,9 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
                 Sum = order.Sum,
                 Status = OrderStatus.Готов,
                 DateCreate = order.DateCreate,
-                DateImplement = DateTime.Now
+                DateImplement = DateTime.Now,
+                ClientId = order.ClientId,
+
             });
         }
 
@@ -131,7 +132,8 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
                 Sum = order.Sum,
                 Status = OrderStatus.Выдан,
                 DateCreate = order.DateCreate,
-                DateImplement = DateTime.Now
+                DateImplement = DateTime.Now,
+                ClientId = order.ClientId,
             });
         }
     }

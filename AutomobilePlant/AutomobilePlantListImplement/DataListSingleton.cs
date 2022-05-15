@@ -17,6 +17,8 @@ namespace AutomobilePlantListImplement
 
         public List<Car> Cars { get; set; }
 
+        public List<Client> Clients { get; set; }
+
         public List<Warehouse> Warehouses { get; set; }
 
         private DataListSingleton()
@@ -24,6 +26,7 @@ namespace AutomobilePlantListImplement
             Details = new List<Detail>();
             Orders = new List<Order>();
             Cars = new List<Car>();
+            Clients = new List<Client>(); 
             Warehouses = new List<Warehouse>();
         }
 

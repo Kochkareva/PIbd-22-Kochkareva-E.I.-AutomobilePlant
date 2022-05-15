@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31624.102
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomobilePlantView", "AutomobilePlantView\AutomobilePlantView.csproj", "{2E2E30F4-9896-4F5E-BB41-3E10D0AF9CD4}"
 EndProject
@@ -13,7 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomobilePlantListImplemen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomobilePlantFileImplement", "AutomobilePlantFileImplement\AutomobilePlantFileImplement.csproj", "{02F8EE80-2721-4C11-8392-13AB9AC77B93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomobilePlantDatabaseImplement", "AutomobilePlantDatabaseImplement\AutomobilePlantDatabaseImplement.csproj", "{F8CE03BE-DB2B-47F7-B15C-51838C33B04A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomobilePlantDatabaseImplement", "AutomobilePlantDatabaseImplement\AutomobilePlantDatabaseImplement.csproj", "{F8CE03BE-DB2B-47F7-B15C-51838C33B04A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomobilePlantRestApi", "AutomobilePlantRestApi\AutomobilePlantRestApi.csproj", "{35D16B4C-EED5-462E-98E9-81091DC9B19D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomobilePlantClientApp", "AutomobilePlantClientApp\AutomobilePlantClientApp.csproj", "{F4C14C64-EE67-427E-8A7D-03DD44D7D73F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomobilePlantWarehouseApp", "AutomobilePlantWarehouseApp\AutomobilePlantWarehouseApp.csproj", "{19FB7F66-129A-45E6-86A1-E816A2AEADCE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +51,18 @@ Global
 		{F8CE03BE-DB2B-47F7-B15C-51838C33B04A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8CE03BE-DB2B-47F7-B15C-51838C33B04A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8CE03BE-DB2B-47F7-B15C-51838C33B04A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35D16B4C-EED5-462E-98E9-81091DC9B19D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35D16B4C-EED5-462E-98E9-81091DC9B19D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35D16B4C-EED5-462E-98E9-81091DC9B19D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35D16B4C-EED5-462E-98E9-81091DC9B19D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4C14C64-EE67-427E-8A7D-03DD44D7D73F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4C14C64-EE67-427E-8A7D-03DD44D7D73F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4C14C64-EE67-427E-8A7D-03DD44D7D73F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4C14C64-EE67-427E-8A7D-03DD44D7D73F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19FB7F66-129A-45E6-86A1-E816A2AEADCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19FB7F66-129A-45E6-86A1-E816A2AEADCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19FB7F66-129A-45E6-86A1-E816A2AEADCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19FB7F66-129A-45E6-86A1-E816A2AEADCE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
