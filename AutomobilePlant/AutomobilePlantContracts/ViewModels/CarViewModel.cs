@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using AutomobilePlantContracts.Attributes;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace AutomobilePlantContracts.ViewModels
@@ -10,10 +11,10 @@ namespace AutomobilePlantContracts.ViewModels
     {
         public int Id { get; set; }
 
-        [DisplayName("Название автомобиля")]
+        [Column(title: "Название автомобиля", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string CarName { get; set; }
 
-        [DisplayName("Цена")]
+        [Column(title: "Цена", gridViewAutoSize: GridViewAutoSize.Fill)]
         public decimal Price { get; set; }
 
         public Dictionary<int, (string, int)> CarDetails { get; set; }
