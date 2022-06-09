@@ -75,6 +75,26 @@ namespace AutomobilePlantView
             LoadData();
         }
 
+        private void buttonnIssuedOrder_Click(object sender, EventArgs e)
+        {
+            if (dataGridView.SelectedRows.Count == 1)
+            {
+                int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
+                try
+                {
+                    _orderLogic.DeliveryOrder(new ChangeStatusBindingModel
+                    {
+                        OrderId = id
+                    });
+                    LoadData();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
         private void buttonRef_Click(object sender, EventArgs e)
         {
             LoadData();
@@ -120,40 +140,9 @@ namespace AutomobilePlantView
             form.ShowDialog();
         }
 
-        private void складыToolStripMenuItem_Click(object sender, EventArgs e)
+        private void письмаКлиентовToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Program.Container.Resolve<FormWarehouses>();
-            form.ShowDialog();
-        }
-
-        private void пополнениеСкладаToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var form = Program.Container.Resolve<FormFillingWarehouse>();
-            form.ShowDialog();
-        }
-
-        private void списокСкладовToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using var dialog = new SaveFileDialog { Filter = "docx|*.docx" };
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                _reportLogic.SaveWarehousesToWordFile(new ReportBindingModel
-                {
-                    FileName = dialog.FileName
-                });
-                MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
-        private void списокЗаказовПоДатамToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var form = Program.Container.Resolve<FormReportOrderDate>();
-            form.ShowDialog();
-        }
-
-        private void списокЗагруженностиСкладовToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var form = Program.Container.Resolve<FormReportWarehouseDetails>();
+            var form=Program.Container.Resolve<FormMessageInfo>();
             form.ShowDialog();
         }
     }
