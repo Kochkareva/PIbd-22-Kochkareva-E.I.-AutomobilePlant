@@ -41,7 +41,7 @@ namespace AutomobilePlantDatabaseImplement.Implements
             }
             using var context = new AutomobilePlantDatabase();
             var implementer = context.Implementers
-            .FirstOrDefault(rec => rec.ImplementerFullName == model.ImplementerFullName || rec.Id == model.Id);
+            .FirstOrDefault(rec => rec.Id == model.Id);
             return implementer != null ? CreateModel(implementer) : null;
         }
 

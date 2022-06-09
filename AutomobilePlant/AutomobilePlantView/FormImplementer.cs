@@ -15,8 +15,6 @@ namespace AutomobilePlantView
 {
     public partial class FormImplementer : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
         public int Id { set { id = value; } }
 
         private readonly ImplementerLogic _logic;

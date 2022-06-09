@@ -47,8 +47,7 @@ namespace AutomobilePlantDatabaseImplement.Implements
                 return null;
             }
             using var context = new AutomobilePlantDatabase();
-            var order = context.Orders.Include(rec => rec.Car)
-                .Include(rec => rec.Client)
+            var order = context.Orders.Include(rec => rec.Car).Include(rec => rec.Client)
                 .Include(rec => rec.Implementer)
             .FirstOrDefault(rec => rec.Id == model.Id);
             return order != null ? CreateModel(order) : null;
