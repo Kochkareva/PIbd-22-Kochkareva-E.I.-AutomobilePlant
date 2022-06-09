@@ -23,6 +23,7 @@ namespace AutomobilePlantFileImplement
         public List<Car> Cars { get; set; }
         public List<Client> Clients { get; set; }
         public List<Implementer> Implementers { get; set; }
+		
         public FileDataListSingleton()
         {
             Details = LoadDetails();
@@ -143,7 +144,7 @@ namespace AutomobilePlantFileImplement
             }
             return list;
         }
-
+		
 		private List<Implementer> LoadImplementers()
         {
             var list = new List<Implementer>();
