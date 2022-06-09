@@ -13,10 +13,12 @@ namespace AutomobilePlantRestApi.Controllers
     {
         private readonly IOrderLogic _order;
         private readonly ICarLogic _car;
-        public MainController(IOrderLogic order, ICarLogic car)
+        private readonly IMessageInfoLogic _messageInfoLogic;
+        public MainController(IOrderLogic order, ICarLogic car, IMessageInfoLogic messageInfoLogic)
         {
             _order = order;
             _car = car;
+            _messageInfoLogic = messageInfoLogic;
         }
         [HttpGet]
         public List<CarViewModel> GetCarList() => _car.Read(null)?.ToList();
@@ -31,5 +33,11 @@ namespace AutomobilePlantRestApi.Controllers
         [HttpPost]
         public void CreateOrder(CreateOrderBindingModel model) =>
        _order.CreateOrder(model);
+        [HttpGet]
+        public List<MessageInfoViewModel> GetMessage(int clientId) =>
+          _messageInfoLogic.Read(new MessageInfoBindingModel
+          {
+              ClientId = clientId
+          });
     }
 }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AutomobilePlantDatabaseImplement.Migrations
 {
     [DbContext(typeof(AutomobilePlantDatabase))]
-    [Migration("20220417022226_InitialCreate")]
+    [Migration("20220428071153_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -127,6 +127,33 @@ namespace AutomobilePlantDatabaseImplement.Migrations
                     b.ToTable("Implementers");
                 });
 
+            modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.MessageInfo", b =>
+                {
+                    b.Property<string>("MessageId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Body")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateDelivery")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SenderName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Subject")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("MessageId");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("MessageInfoes");
+                });
+
             modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -188,6 +215,15 @@ namespace AutomobilePlantDatabaseImplement.Migrations
                     b.Navigation("Detail");
                 });
 
+            modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.MessageInfo", b =>
+                {
+                    b.HasOne("AutomobilePlantDatabaseImplement.Models.Client", "Client")
+                        .WithMany("Messages")
+                        .HasForeignKey("ClientId");
+
+                    b.Navigation("Client");
+                });
+
             modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.Order", b =>
                 {
                     b.HasOne("AutomobilePlantDatabaseImplement.Models.Car", "Car")
@@ -222,6 +258,8 @@ namespace AutomobilePlantDatabaseImplement.Migrations
 
             modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.Client", b =>
                 {
+                    b.Navigation("Messages");
+
                     b.Navigation("Orders");
                 });
 
