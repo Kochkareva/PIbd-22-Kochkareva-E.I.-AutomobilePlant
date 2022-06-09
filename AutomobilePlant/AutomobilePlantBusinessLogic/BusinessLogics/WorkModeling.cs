@@ -41,8 +41,7 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
         ConcurrentBag<OrderViewModel> orders)
         {
             // ищем заказы, которые уже в работе (вдруг исполнителя прервали)
-            var runOrders = await Task.Run(() => _orderLogic.Read(new
-            OrderBindingModel
+            var runOrders = await Task.Run(() => _orderLogic.Read(new OrderBindingModel
             {
                 ImplementerId = implementer.Id,
                 Status = OrderStatus.Выполняется
@@ -58,20 +57,71 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
                 // отдыхаем
                 Thread.Sleep(implementer.PauseTime);
             }
+
+            var oldOrders = await Task.Run(() => _orderLogic.Read(new OrderBindingModel
+            {
+                ImplementerId = implementer.Id,
+                Status = OrderStatus.Требуются_материалы
+            }));
+            foreach (var order in oldOrders)
+            {
+                try
+                {
+                    _orderLogic.TakeOrderInWork(new ChangeStatusBindingModel
+                    {
+                        OrderId = order.Id,
+                        ImplementerId = implementer.Id
+                    });
+                    var processedOrder = _orderLogic.Read(new OrderBindingModel
+                    {
+                        Id = order.Id,
+                    })?[0];
+                    if (processedOrder.Status.Equals("Требуются_материалы"))
+                    {
+                        continue;
+                    }
+                    // делаем работу заново
+                    Thread.Sleep(implementer.WorkingTime * rnd.Next(1, 5) * order.Count);
+                    _orderLogic.FinishOrder(new ChangeStatusBindingModel
+                    {
+                        OrderId = order.Id,
+                        ImplementerId = implementer.Id
+                    });
+                    // отдыхаем
+                    Thread.Sleep(implementer.PauseTime);
+                }
+                catch (Exception) { }
+            }
+
+
             await Task.Run(() =>
             {
                 while (!orders.IsEmpty)
                 {
-                    if (orders.TryTake(out OrderViewModel order))
+                    if (orders.TryTake(out OrderViewModel _order))
                     {
                         // пытаемся назначить заказ на исполнителя
                         _orderLogic.TakeOrderInWork(new ChangeStatusBindingModel
-                        { OrderId = order.Id, ImplementerId = implementer.Id });
+                        {
+                            OrderId = _order.Id,
+                            ImplementerId = implementer.Id
+                        });
+                        var processedOrder = _orderLogic.Read(new OrderBindingModel
+                        {
+                            Id = _order.Id,
+                        })?[0];
+                        // Если материалы не подвезли, пропустим
+                        if (processedOrder.Status.Equals("Требуются_материалы"))
+                        {
+                            continue;
+                        }
                         // делаем работу
-                        Thread.Sleep(implementer.WorkingTime *
-                        rnd.Next(1, 5) * order.Count);
+                        Thread.Sleep(implementer.WorkingTime * rnd.Next(1, 5) * _order.Count);
                         _orderLogic.FinishOrder(new ChangeStatusBindingModel
-                        { OrderId = order.Id, ImplementerId = implementer.Id });
+                        {
+                            OrderId = _order.Id,
+                            ImplementerId = implementer.Id
+                        });
                         // отдыхаем
                         Thread.Sleep(implementer.PauseTime);
                     }

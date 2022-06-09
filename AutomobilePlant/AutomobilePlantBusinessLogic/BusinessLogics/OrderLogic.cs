@@ -58,29 +58,35 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
             {
                 throw new Exception("Заказ не найден");
             }
-            if (!order.Status.Equals("Принят"))
+            if (!order.Status.Equals("Принят") && !order.Status.Equals("Требуются_материалы"))
             {
-                throw new Exception("Заказ еще не принят");
+                throw new Exception("Заказ не находится в статусе \"Принят\" ");
             }
-            if (!_warehouseStorage.CheckCountDetails(_carStorage.GetElement(new CarBindingModel
-            {
-                Id = order.CarId
-            }).CarDetails, order.Count))
-            {
-                throw new Exception("Недостаточно материалов");
-            }
-            _orderStorage.Update(new OrderBindingModel
+            var updateBindingModel = new OrderBindingModel
             {
                 Id = order.Id,
                 CarId = order.CarId,
-                ClientId = order.ClientId,
-                ImplementerId = order.ImplementerId,
                 Count = order.Count,
                 Sum = order.Sum,
-                Status = OrderStatus.Выполняется,
                 DateCreate = order.DateCreate,
-                DateImplement = DateTime.Now
-            });
+                ClientId = order.ClientId
+            };
+
+            if (!_warehouseStorage
+                .CheckCountDetails(_carStorage.GetElement(new CarBindingModel
+                {
+                    Id = order.CarId
+                }).CarDetails, order.Count))
+            {
+                updateBindingModel.Status = OrderStatus.Требуются_материалы;
+            }
+            else
+            {
+                updateBindingModel.DateImplement = DateTime.Now;
+                updateBindingModel.Status = OrderStatus.Выполняется;
+                updateBindingModel.ImplementerId = model.ImplementerId;
+            }
+            _orderStorage.Update(updateBindingModel);
         }
 
         public void FinishOrder(ChangeStatusBindingModel model)

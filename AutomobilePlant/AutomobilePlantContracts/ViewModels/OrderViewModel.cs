@@ -15,16 +15,13 @@ namespace AutomobilePlantContracts.ViewModels
         public int Id { get; set; }
 
         public int CarId { get; set; }
-
         public int ClientId { get; set; }
-
         public int? ImplementerId { get; set; }
-
-        [DisplayName("ФИО исполнителя")]
-        public string ImplementerFullName { get; set; }
-
         [DisplayName("ФИО Клиента")]
         public string ClientFullName { get; set; }
+
+        [DisplayName("Исполнитель")]
+        public string ImplementerFullName { get; set; }
 
         [DisplayName("Автомобиль")]
         public string CarName { get; set; }
