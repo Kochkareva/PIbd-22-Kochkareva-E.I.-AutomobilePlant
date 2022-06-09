@@ -12,7 +12,7 @@ namespace AutomobilePlantContracts.BindingModels
     /// </summary>
     public class OrderBindingModel
     {
-         public int? Id { get; set; }
+        public int? Id { get; set; }
 
         public int CarId { get; set; }
 

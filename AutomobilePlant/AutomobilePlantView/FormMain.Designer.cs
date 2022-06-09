@@ -44,9 +44,6 @@ namespace AutomobilePlantView
             this.списокДеталейToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.деталиПоАвтомобилямToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокЗаказовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.складыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.списокСкладовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.списокЗагруженностиСкладовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокЗаказовПоДатамToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.пополнениеСкладаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -199,34 +196,6 @@ namespace AutomobilePlantView
             this.складыToolStripMenuItem.Text = "Склады";
             this.складыToolStripMenuItem.Click += new System.EventHandler(this.складыToolStripMenuItem_Click);
             // 
-            // списокСкладовToolStripMenuItem
-            // 
-            this.списокСкладовToolStripMenuItem.Name = "списокСкладовToolStripMenuItem";
-            this.списокСкладовToolStripMenuItem.Size = new System.Drawing.Size(310, 26);
-            this.списокСкладовToolStripMenuItem.Text = "Список складов";
-            this.списокСкладовToolStripMenuItem.Click += new System.EventHandler(this.списокСкладовToolStripMenuItem_Click);
-            // 
-            // списокЗагруженностиСкладовToolStripMenuItem
-            // 
-            this.списокЗагруженностиСкладовToolStripMenuItem.Name = "списокЗагруженностиСкладовToolStripMenuItem";
-            this.списокЗагруженностиСкладовToolStripMenuItem.Size = new System.Drawing.Size(310, 26);
-            this.списокЗагруженностиСкладовToolStripMenuItem.Text = "Список загруженности складов";
-            this.списокЗагруженностиСкладовToolStripMenuItem.Click += new System.EventHandler(this.списокЗагруженностиСкладовToolStripMenuItem_Click);
-            // 
-            // списокЗаказовПоДатамToolStripMenuItem
-            // 
-            this.списокЗаказовПоДатамToolStripMenuItem.Name = "списокЗаказовПоДатамToolStripMenuItem";
-            this.списокЗаказовПоДатамToolStripMenuItem.Size = new System.Drawing.Size(310, 26);
-            this.списокЗаказовПоДатамToolStripMenuItem.Text = "Список заказов по датам";
-            this.списокЗаказовПоДатамToolStripMenuItem.Click += new System.EventHandler(this.списокЗаказовПоДатамToolStripMenuItem_Click);
-            // 
-            // пополнениеСкладаToolStripMenuItem
-            // 
-            this.пополнениеСкладаToolStripMenuItem.Name = "пополнениеСкладаToolStripMenuItem";
-            this.пополнениеСкладаToolStripMenuItem.Size = new System.Drawing.Size(162, 24);
-            this.пополнениеСкладаToolStripMenuItem.Text = "Пополнение склада";
-            this.пополнениеСкладаToolStripMenuItem.Click += new System.EventHandler(this.пополнениеСкладаToolStripMenuItem_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -267,10 +236,5 @@ namespace AutomobilePlantView
         private System.Windows.Forms.ToolStripMenuItem деталиПоАвтомобилямToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem списокЗаказовToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem клиентыToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem складыToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem списокСкладовToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem списокЗагруженностиСкладовToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem списокЗаказовПоДатамToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem пополнениеСкладаToolStripMenuItem;
     }
 }
