@@ -73,12 +73,13 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
             {
                 Id = order.Id,
                 CarId = order.CarId,
+                ClientId = order.ClientId,
+                ImplementerId = order.ImplementerId,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = OrderStatus.Выполняется,
                 DateCreate = order.DateCreate,
-                DateImplement = DateTime.Now,
-                ClientId = order.ClientId,
+                DateImplement = DateTime.Now
             });
         }
 
@@ -100,12 +101,13 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
             {
                 Id = order.Id,
                 CarId = order.CarId,
+                ClientId = order.ClientId,
+                ImplementerId = order.ImplementerId,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = OrderStatus.Готов,
                 DateCreate = order.DateCreate,
-                DateImplement = DateTime.Now,
-                ClientId = order.ClientId,
+                DateImplement = DateTime.Now
 
             });
         }
@@ -128,12 +130,13 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
             {
                 Id = order.Id,
                 CarId = order.CarId,
+                ClientId = order.ClientId,
+                ImplementerId = order.ImplementerId,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = OrderStatus.Выдан,
                 DateCreate = order.DateCreate,
-                DateImplement = DateTime.Now,
-                ClientId = order.ClientId,
+                DateImplement = DateTime.Now
             });
         }
     }
