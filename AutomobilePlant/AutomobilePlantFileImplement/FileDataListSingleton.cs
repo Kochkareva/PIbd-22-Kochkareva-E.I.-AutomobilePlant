@@ -23,7 +23,7 @@ namespace AutomobilePlantFileImplement
         public List<Car> Cars { get; set; }
         public List<Client> Clients { get; set; }
         public List<Implementer> Implementers { get; set; }
-		
+
         public FileDataListSingleton()
         {
             Details = LoadDetails();
@@ -85,6 +85,7 @@ namespace AutomobilePlantFileImplement
                         Id = Convert.ToInt32(elem.Attribute("Id").Value),
                         CarId = Convert.ToInt32(elem.Element("CarId").Value),
                         ClientId = Convert.ToInt32(elem.Element("ClientId").Value),
+                        ImplementerId = Convert.ToInt32(elem.Element("ImplementerId").Value),
                         Count = Convert.ToInt32(elem.Element("Count").Value),
                         Sum = Convert.ToDecimal(elem.Element("Sum").Value),
                         Status = (OrderStatus)Enum.Parse(typeof(OrderStatus), elem.Element("Status").Value),
@@ -144,8 +145,8 @@ namespace AutomobilePlantFileImplement
             }
             return list;
         }
-		
-		private List<Implementer> LoadImplementers()
+
+        private List<Implementer> LoadImplementers()
         {
             var list = new List<Implementer>();
             if (File.Exists(ImplementerFileName))
@@ -165,7 +166,6 @@ namespace AutomobilePlantFileImplement
             }
             return list;
         }
-
         private void SaveDetails()
         {
             if (Details != null)
@@ -194,6 +194,7 @@ namespace AutomobilePlantFileImplement
                     new XAttribute("Id", order.Id),
                      new XElement("CarId", order.CarId),
                      new XElement("ClientId", order.ClientId),
+                     new XElement("ImplementerId", order.ImplementerId),
                      new XElement("Count", order.Count),
                      new XElement("Sum", order.Sum),
                      new XElement("Status", order.Status),
