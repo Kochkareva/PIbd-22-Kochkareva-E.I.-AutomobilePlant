@@ -38,7 +38,7 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
         /// <param name="implementer"></param>
         /// <param name="orders"></param>
         private async Task WorkerWorkAsync(ImplementerViewModel implementer,
-        ConcurrentBag<OrderViewModel> orders)
+       ConcurrentBag<OrderViewModel> orders)
         {
             // ищем заказы, которые уже в работе (вдруг исполнителя прервали)
             var runOrders = await Task.Run(() => _orderLogic.Read(new OrderBindingModel
@@ -92,15 +92,12 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
                 }
                 catch (Exception) { }
             }
-
-
             await Task.Run(() =>
             {
                 while (!orders.IsEmpty)
                 {
                     if (orders.TryTake(out OrderViewModel _order))
                     {
-                        // пытаемся назначить заказ на исполнителя
                         _orderLogic.TakeOrderInWork(new ChangeStatusBindingModel
                         {
                             OrderId = _order.Id,
@@ -110,12 +107,10 @@ namespace AutomobilePlantBusinessLogic.BusinessLogics
                         {
                             Id = _order.Id,
                         })?[0];
-                        // Если материалы не подвезли, пропустим
                         if (processedOrder.Status.Equals("Требуются_материалы"))
                         {
                             continue;
                         }
-                        // делаем работу
                         Thread.Sleep(implementer.WorkingTime * rnd.Next(1, 5) * _order.Count);
                         _orderLogic.FinishOrder(new ChangeStatusBindingModel
                         {
