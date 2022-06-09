@@ -122,7 +122,7 @@ namespace AutomobilePlantDatabaseImplement.Implements
             using var transaction = context.Database.BeginTransaction();
             try
             {
-                foreach(KeyValuePair<int, (string, int)> detail in details)
+                foreach(var detail in details)
                 {
                     int requiredCount = detail.Value.Item2 * detailCount;
                     var warehouseDetails = context.WarehouseDetails.Where(rec => rec.DetailId == detail.Key);
@@ -152,7 +152,7 @@ namespace AutomobilePlantDatabaseImplement.Implements
             catch
             {
                 transaction.Rollback();
-                throw;
+                return false;
             }
         }
 

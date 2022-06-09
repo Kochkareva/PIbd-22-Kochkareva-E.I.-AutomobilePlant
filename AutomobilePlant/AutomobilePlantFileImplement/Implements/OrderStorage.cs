@@ -35,7 +35,9 @@ namespace AutomobilePlantFileImplement.Implements
             return source.Orders
             .Where(rec => rec.CarId.Equals(model.CarId) || (model.DateFrom.HasValue && model.DateTo.HasValue &&
                 rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
-                || model.ClientId.HasValue && rec.ClientId == model.ClientId.Value)
+                 || (model.ClientId.HasValue && rec.ClientId == model.ClientId.Value)
+                || (model.SearchStatus.HasValue && model.SearchStatus.Value == rec.Status)
+                || (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && model.Status == rec.Status))
                 .Select(CreateModel)
                 .ToList();
         }
@@ -85,6 +87,7 @@ namespace AutomobilePlantFileImplement.Implements
         {
             order.CarId = model.CarId;
             order.ClientId = model.ClientId.Value;
+            order.ImplementerId = model.ImplementerId.Value;
             order.Count = model.Count;
             order.Sum = model.Sum;
             order.Status = model.Status;
@@ -110,6 +113,8 @@ namespace AutomobilePlantFileImplement.Implements
                 CarName = source.Cars.FirstOrDefault(rec => rec.Id == order.CarId)?.CarName,
                 ClientId = order.ClientId,
                 ClientFullName = source.Clients.FirstOrDefault(rec => rec.Id == order.ClientId)?.ClientFullName,
+                ImplementerId = order.ImplementerId,
+                ImplementerFullName = source.Implementers.FirstOrDefault(rec => rec.Id == order.ImplementerId)?.ImplementerFullName,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status.ToString(),
