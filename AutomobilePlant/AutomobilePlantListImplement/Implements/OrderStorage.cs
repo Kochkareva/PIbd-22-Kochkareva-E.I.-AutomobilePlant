@@ -41,7 +41,9 @@ namespace AutomobilePlantListImplement.Implements
             {
                 if (order.Id == model.Id || (model.DateFrom.HasValue && model.DateTo.HasValue &&
                     order.DateCreate >= model.DateFrom && order.DateCreate <= model.DateTo)
-                    || model.ClientId.HasValue && order.ClientId == model.ClientId.Value)
+                    || (model.ClientId.HasValue && order.ClientId == model.ClientId.Value)
+                    || (model.SearchStatus.HasValue && model.SearchStatus.Value == order.Status)
+                    || (model.ImplementerId.HasValue && order.ImplementerId == model.ImplementerId && model.Status == order.Status))
                 {
                     result.Add(CreateModel(order));
                 }
@@ -112,6 +114,7 @@ namespace AutomobilePlantListImplement.Implements
         {
             order.CarId = model.CarId;
             order.ClientId = model.ClientId.Value;
+            order.ImplementerId = model.ImplementerId.Value;
             order.Count = model.Count;
             order.Sum = model.Sum;
             order.Status = model.Status;
@@ -140,12 +143,23 @@ namespace AutomobilePlantListImplement.Implements
                     break;
                 }
             }
+            string ImplementerFullName = string.Empty;
+            foreach(var implementer in source.Implementers)
+            {
+                if(order.ImplementerId == implementer.Id)
+                {
+                    ImplementerFullName = implementer.ImplementerFullName;
+                    break;
+                }
+            }
             return new OrderViewModel
             {
                 Id = order.Id,
                 CarId = order.CarId,
                 ClientId = order.ClientId,
                 ClientFullName = ClientFullName,
+                ImplementerId = order.ImplementerId,
+                ImplementerFullName = ImplementerFullName,
                 CarName = carsName,
                 Count = order.Count,
                 Sum = order.Sum,
