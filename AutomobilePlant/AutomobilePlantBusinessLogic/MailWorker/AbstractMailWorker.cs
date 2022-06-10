@@ -63,7 +63,7 @@ namespace AutomobilePlantBusinessLogic.MailWorker
             var list = await ReceiveMailAsync();
             foreach (var mail in list)
             {
-                _messageInfoLogic.CreateOrUpdate(mail);
+                _messageInfoLogic.Create(mail);
             }
         }
         protected abstract Task SendMailAsync(MailSendInfoBindingModel info);

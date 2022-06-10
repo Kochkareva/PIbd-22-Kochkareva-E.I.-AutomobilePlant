@@ -69,7 +69,8 @@ namespace AutomobilePlantBusinessLogic.MailWorker
                                 MessageId = message.MessageId,
                                 FromMailAddress = mail.Address,
                                 Subject = message.Subject,
-                                Body = message.TextBody
+                                Body = message.TextBody,
+                                isRead = false
                             });
                         }
                     }

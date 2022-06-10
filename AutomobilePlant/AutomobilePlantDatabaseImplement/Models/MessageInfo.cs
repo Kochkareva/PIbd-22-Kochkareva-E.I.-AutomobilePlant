@@ -15,6 +15,8 @@ namespace AutomobilePlantDatabaseImplement.Models
         public DateTime DateDelivery { get; set; }
         public string Subject { get; set; }
         public string Body { get; set; }
+        public bool isRead { get; set; }
+        public string Reply { get; set; }
         public virtual Client Client { get; set; }
     }
 }

@@ -17,5 +17,9 @@ namespace AutomobilePlantContracts.ViewModels
         public string Subject { get; set; }
         [DisplayName("Текст")]
         public string Body { get; set; }
+        [DisplayName("Прочитанно")]
+        public bool isRead { get; set; }
+        [DisplayName("Ответ")]
+        public string Reply { get; set; }
     }
 }

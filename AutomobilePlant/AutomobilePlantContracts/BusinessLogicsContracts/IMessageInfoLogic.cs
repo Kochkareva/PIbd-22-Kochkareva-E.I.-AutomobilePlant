@@ -8,6 +8,7 @@ namespace AutomobilePlantContracts.BusinessLogicsContracts
     public interface IMessageInfoLogic
     {
         List<MessageInfoViewModel> Read(MessageInfoBindingModel model);
-        void CreateOrUpdate(MessageInfoBindingModel model);
+        public void Create(MessageInfoBindingModel model);
+        public void Update(MessageInfoBindingModel model);
     }
 }

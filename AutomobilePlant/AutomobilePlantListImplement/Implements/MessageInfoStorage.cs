@@ -49,6 +49,10 @@ namespace AutomobilePlantListImplement.Implements
             source.Messages.Add(CreateModel(model, new MessageInfo()));
         }
 
+        public void Update(MessageInfoBindingModel model)
+        {
+
+        }
         private static MessageInfo CreateModel(MessageInfoBindingModel model, MessageInfo messageInfo)
         {
             messageInfo.ClientId = model.ClientId;

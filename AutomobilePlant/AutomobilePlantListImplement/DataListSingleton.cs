@@ -22,6 +22,7 @@ namespace AutomobilePlantListImplement
         public List<Implementer> Implementers { get; set; }
 
         public List<MessageInfo> Messages { get; set; }
+        public List<Warehouse> Warehouses { get; set; }
 
         private DataListSingleton()
         {
@@ -30,7 +31,8 @@ namespace AutomobilePlantListImplement
             Cars = new List<Car>();
             Clients = new List<Client>();
             Implementers = new List<Implementer>();
-            Messages = new List<MessageInfo>();
+            Messages = new List<MessageInfo>(); 
+            Warehouses = new List<Warehouse>();
         }
 
         public static DataListSingleton GetInstance()

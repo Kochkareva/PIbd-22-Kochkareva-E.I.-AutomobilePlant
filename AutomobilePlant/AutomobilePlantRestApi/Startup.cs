@@ -15,8 +15,8 @@ using AutomobilePlantBusinessLogic.BusinessLogics;
 using AutomobilePlantContracts.BusinessLogicsContracts;
 using AutomobilePlantContracts.StoragesContracts;
 using AutomobilePlantDatabaseImplement.Implements;
+using M6T.Core.TupleModelBinder;
 using AutomobilePlantBusinessLogic.MailWorker;
-using AutomobilePlantContracts.BindingModels;
 
 namespace AutomobilePlantRestApi
 {
@@ -35,18 +35,26 @@ namespace AutomobilePlantRestApi
             services.AddTransient<IClientStorage, ClientStorage>();
             services.AddTransient<IOrderStorage, OrderStorage>();
             services.AddTransient<ICarStorage, CarStorage>();
-            services.AddTransient<IMessageInfoStorage, MessageInfoStorage>();
-
+            services.AddTransient<IDetailStorage, DetailStorage>();
+            services.AddTransient<IWarehouseStorage, WarehouseStorage>();
             services.AddTransient<IOrderLogic, OrderLogic>();
             services.AddTransient<IClientLogic, ClientLogic>();
             services.AddTransient<ICarLogic, CarLogic>();
+            services.AddTransient<IWarehouseLogic, WarehouseLogic>();
+            services.AddTransient<IDetailLogic, DetailLogic>();
+            services.AddTransient<IMessageInfoStorage, MessageInfoStorage>();
+
             services.AddTransient<IMessageInfoLogic, MessageInfoLogic>();
             services.AddSingleton<AbstractMailWorker, MailKitWorker>();
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AutomobilePlantRestApi", Version = "v1" });
+            });
+            services.AddMvc(options =>
+            {
+                options.ModelBinderProviders.Insert(0, new TupleModelBinderProvider());
             });
         }
 
@@ -69,16 +77,6 @@ namespace AutomobilePlantRestApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-            });
-            var mailSender = app.ApplicationServices.GetService<AbstractMailWorker>();
-            mailSender.MailConfig(new MailConfigBindingModel
-            {
-                MailLogin = Configuration?.GetSection("MailLogin")?.Value.ToString(),
-                MailPassword = Configuration?.GetSection("MailPassword")?.Value.ToString(),
-                SmtpClientHost = Configuration?.GetSection("SmtpClientHost")?.Value.ToString(),
-                SmtpClientPort = Convert.ToInt32(Configuration?.GetSection("SmtpClientPort")?.Value.ToString()),
-                PopHost = Configuration?.GetSection("PopHost")?.Value.ToString(),
-                PopPort = Convert.ToInt32(Configuration?.GetSection("PopPort")?.Value.ToString())
             });
         }
     }

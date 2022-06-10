@@ -13,5 +13,9 @@ namespace AutomobilePlantContracts.BindingModels
         public string Subject { get; set; }
         public string Body { get; set; }
         public DateTime DateDelivery { get; set; }
+        public int? SkipMessage { get; set; }
+        public int? TakeMessage { get; set; }
+        public bool isRead { get; set; }
+        public string Reply { get; set; }
     }
 }
