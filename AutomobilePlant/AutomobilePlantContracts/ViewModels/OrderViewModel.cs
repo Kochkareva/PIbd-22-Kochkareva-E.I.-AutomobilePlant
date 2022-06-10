@@ -1,9 +1,7 @@
-﻿using System;
+﻿using AutomobilePlantContracts.Attributes;
+using System;
 using System.ComponentModel;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace AutomobilePlantContracts.ViewModels
 {
@@ -12,33 +10,37 @@ namespace AutomobilePlantContracts.ViewModels
     /// </summary>
     public class OrderViewModel
     {
+        [Column(title: "Номер", width: 100)]
         public int Id { get; set; }
 
         public int CarId { get; set; }
+
         public int ClientId { get; set; }
+
         public int? ImplementerId { get; set; }
-        [DisplayName("ФИО Клиента")]
+
+        [Column(title: "Исполнитель", gridViewAutoSize: GridViewAutoSize.Fill)]
+        public string ImplementerFullName { get; set; }
+        
+        [Column(title: "Клиент", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string ClientFullName { get; set; }
 
-        [DisplayName("Исполнитель")]
-        public string ImplementerFullName { get; set; }
-
-        [DisplayName("Автомобиль")]
+        [Column(title: "Автомобиль", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string CarName { get; set; }
 
-        [DisplayName("Количество")]
+        [Column(title: "Количество", gridViewAutoSize: GridViewAutoSize.Fill)]
         public int Count { get; set; }
 
-        [DisplayName("Сумма")]
+        [Column(title: "Сумма", gridViewAutoSize: GridViewAutoSize.Fill)]
         public decimal Sum { get; set; }
 
-        [DisplayName("Статус")]
+        [Column(title: "Статус", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string Status { get; set; }
 
-        [DisplayName("Дата создания")]
+        [Column(title: "Дата создания", gridViewAutoSize: GridViewAutoSize.Fill)]
         public DateTime DateCreate { get; set; }
 
-        [DisplayName("Дата выполнения")]
+        [Column(title: "Дата выполнения", gridViewAutoSize: GridViewAutoSize.Fill)]
         public DateTime? DateImplement { get; set; }
     }
 }
