@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AutomobilePlantDatabaseImplement.Migrations
 {
     [DbContext(typeof(AutomobilePlantDatabase))]
-    [Migration("20220417022226_InitialCreate")]
+    [Migration("20220610061203_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -127,6 +127,39 @@ namespace AutomobilePlantDatabaseImplement.Migrations
                     b.ToTable("Implementers");
                 });
 
+            modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.MessageInfo", b =>
+                {
+                    b.Property<string>("MessageId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Body")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateDelivery")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Reply")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SenderName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Subject")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isRead")
+                        .HasColumnType("bit");
+
+                    b.HasKey("MessageId");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("MessageInfoes");
+                });
+
             modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -169,6 +202,54 @@ namespace AutomobilePlantDatabaseImplement.Migrations
                     b.ToTable("Orders");
                 });
 
+            modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.Warehouse", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateCreate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("OwnerFullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WarehouseName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Warehouses");
+                });
+
+            modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.WarehouseDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DetailId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WarehouseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DetailId");
+
+                    b.HasIndex("WarehouseId");
+
+                    b.ToTable("WarehouseDetails");
+                });
+
             modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.CarDetail", b =>
                 {
                     b.HasOne("AutomobilePlantDatabaseImplement.Models.Car", "Car")
@@ -186,6 +267,15 @@ namespace AutomobilePlantDatabaseImplement.Migrations
                     b.Navigation("Car");
 
                     b.Navigation("Detail");
+                });
+
+            modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.MessageInfo", b =>
+                {
+                    b.HasOne("AutomobilePlantDatabaseImplement.Models.Client", "Client")
+                        .WithMany("Messages")
+                        .HasForeignKey("ClientId");
+
+                    b.Navigation("Client");
                 });
 
             modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.Order", b =>
@@ -213,6 +303,25 @@ namespace AutomobilePlantDatabaseImplement.Migrations
                     b.Navigation("Implementer");
                 });
 
+            modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.WarehouseDetail", b =>
+                {
+                    b.HasOne("AutomobilePlantDatabaseImplement.Models.Detail", "Detail")
+                        .WithMany("WarehouseDetails")
+                        .HasForeignKey("DetailId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AutomobilePlantDatabaseImplement.Models.Warehouse", "Warehouse")
+                        .WithMany("WarehouseDetails")
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Detail");
+
+                    b.Navigation("Warehouse");
+                });
+
             modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.Car", b =>
                 {
                     b.Navigation("CarDetails");
@@ -222,17 +331,26 @@ namespace AutomobilePlantDatabaseImplement.Migrations
 
             modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.Client", b =>
                 {
+                    b.Navigation("Messages");
+
                     b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.Detail", b =>
                 {
                     b.Navigation("CarDetails");
+
+                    b.Navigation("WarehouseDetails");
                 });
 
             modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.Implementer", b =>
                 {
                     b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("AutomobilePlantDatabaseImplement.Models.Warehouse", b =>
+                {
+                    b.Navigation("WarehouseDetails");
                 });
 #pragma warning restore 612, 618
         }

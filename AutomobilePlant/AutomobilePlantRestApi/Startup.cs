@@ -16,6 +16,7 @@ using AutomobilePlantContracts.BusinessLogicsContracts;
 using AutomobilePlantContracts.StoragesContracts;
 using AutomobilePlantDatabaseImplement.Implements;
 using M6T.Core.TupleModelBinder;
+using AutomobilePlantBusinessLogic.MailWorker;
 
 namespace AutomobilePlantRestApi
 {
@@ -41,6 +42,10 @@ namespace AutomobilePlantRestApi
             services.AddTransient<ICarLogic, CarLogic>();
             services.AddTransient<IWarehouseLogic, WarehouseLogic>();
             services.AddTransient<IDetailLogic, DetailLogic>();
+            services.AddTransient<IMessageInfoStorage, MessageInfoStorage>();
+
+            services.AddTransient<IMessageInfoLogic, MessageInfoLogic>();
+            services.AddSingleton<AbstractMailWorker, MailKitWorker>();
 
             services.AddControllers().AddNewtonsoftJson();
             services.AddSwaggerGen(c =>

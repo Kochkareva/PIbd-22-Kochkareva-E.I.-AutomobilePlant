@@ -28,7 +28,7 @@ namespace AutomobilePlantClientApp.Controllers
             }
             return
             View(APIClient.GetRequest<List<OrderViewModel>>($"api/main/getorders?clientId={Program.Client.Id}"));
-        }
+        }                
         [HttpGet]
         public IActionResult Privacy()
         {
@@ -142,6 +142,18 @@ namespace AutomobilePlantClientApp.Controllers
             CarViewModel prod =
             APIClient.GetRequest<CarViewModel>($"api/main/getcar?carId={car}");
             return count * prod.Price;
+        }
+
+        public IActionResult MessageInfo(int page = 1)
+        {
+            if (Program.Client == null)
+            {
+                return Redirect("~/Home/Enter");
+            }
+            var tmp = APIClient.GetRequest<(List<MessageInfoViewModel> list, int numbOfPages)>
+                ($"api/main/GetMessage?clientId={Program.Client.Id}&page={page}");
+            var model = (tmp.list, tmp.numbOfPages, page);
+            return View(model);
         }
     }
 }

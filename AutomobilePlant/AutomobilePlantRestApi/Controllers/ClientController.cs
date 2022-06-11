@@ -2,7 +2,7 @@
 using AutomobilePlantContracts.BindingModels;
 using AutomobilePlantContracts.BusinessLogicsContracts;
 using AutomobilePlantContracts.ViewModels;
-
+using System.Collections.Generic;
 
 namespace AutomobilePlantRestApi.Controllers
 {
@@ -31,6 +31,6 @@ namespace AutomobilePlantRestApi.Controllers
         _logic.CreateOrUpdate(model);
         [HttpPost]
         public void UpdateData(ClientBindingModel model) =>
-        _logic.CreateOrUpdate(model);
+        _logic.CreateOrUpdate(model);       
     }
 }

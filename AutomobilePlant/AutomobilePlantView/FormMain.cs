@@ -156,5 +156,11 @@ namespace AutomobilePlantView
             var form = Program.Container.Resolve<FormReportWarehouseDetails>();
             form.ShowDialog();
         }
+
+        private void письмаКлиентовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormMessageInfo>();
+            form.ShowDialog();
+        }
     }
 }
