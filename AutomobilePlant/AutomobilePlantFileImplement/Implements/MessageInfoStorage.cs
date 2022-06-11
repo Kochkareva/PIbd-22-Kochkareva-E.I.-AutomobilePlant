@@ -49,7 +49,13 @@ namespace AutomobilePlantFileImplement.Implements
 
         public void Update(MessageInfoBindingModel model)
         {
-
+            var element = source.Messages.FirstOrDefault(rec => rec.MessageId == model.MessageId);
+            if (element == null)
+            {
+                throw new Exception("Письмо не найдено");
+            }
+            element.isRead = model.isRead;
+            element.Reply = model.Reply;
         }
         private static MessageInfo CreateModel(MessageInfoBindingModel model, MessageInfo messageInfo)
         {
@@ -58,6 +64,8 @@ namespace AutomobilePlantFileImplement.Implements
             messageInfo.DateDelivery = model.DateDelivery;
             messageInfo.Subject = model.Subject;
             messageInfo.Body = model.Body;
+            messageInfo.isRead = model.isRead;
+            messageInfo.Reply = model.Reply;
             return messageInfo;
         }
         private MessageInfoViewModel CreateModel(MessageInfo messageInfo)
@@ -68,7 +76,9 @@ namespace AutomobilePlantFileImplement.Implements
                 SenderName = messageInfo.SenderName,
                 DateDelivery = messageInfo.DateDelivery,
                 Subject = messageInfo.Subject,
-                Body = messageInfo.Body
+                Body = messageInfo.Body,
+                isRead = messageInfo.isRead,
+                Reply = messageInfo.Reply
             };
         }
     }

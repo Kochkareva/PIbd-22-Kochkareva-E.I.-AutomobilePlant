@@ -50,7 +50,6 @@ namespace AutomobilePlantView
                     if (view.Reply != null)
                     {
                         textBoxReply.ReadOnly = true;
-                        textBoxReply.BackColor = Color.White;
                         buttonSend.Enabled = false;
                         buttonSend.Visible = false;
                     }
@@ -70,19 +69,7 @@ namespace AutomobilePlantView
             }
         }
         private void buttonCancel_Click(object sender, EventArgs e)
-        {            
-            try
-            {
-                _logic.Update(new MessageInfoBindingModel
-                {
-                    MessageId = id,
-                    isRead = true
-                });
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+        {       
             DialogResult = DialogResult.OK;
             Close();
         }
@@ -99,7 +86,6 @@ namespace AutomobilePlantView
                 _logic.Update(new MessageInfoBindingModel
                 {
                     MessageId = id,
-                    isRead = true,
                     Reply = textBoxReply.Text,
                 });
 

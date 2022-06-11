@@ -15,5 +15,6 @@ namespace AutomobilePlantListImplement.Models
         public string Subject { get; set; }
         public string Body { get; set; }
         public bool isRead { get; set; }
+        public string Reply { get; set; }
     }
 }

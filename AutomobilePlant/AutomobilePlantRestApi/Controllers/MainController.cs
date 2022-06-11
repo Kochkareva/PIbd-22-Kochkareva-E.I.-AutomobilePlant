@@ -51,8 +51,10 @@ namespace AutomobilePlantRestApi.Controllers
             {
                 NumOfPages++;
             }
-            var list = _messageInfoLogic.Read(new MessageInfoBindingModel { ClientId = clientId, SkipMessage = (page - 1) * mailsOnPage, TakeMessage = mailsOnPage }).ToList();
-
+            var list = _messageInfoLogic.Read(new MessageInfoBindingModel 
+            { 
+                ClientId = clientId, SkipMessage = (page - 1) * mailsOnPage, TakeMessage = mailsOnPage 
+            }).ToList();
             return (list.Take(mailsOnPage).ToList(), NumOfPages);
         }
     }

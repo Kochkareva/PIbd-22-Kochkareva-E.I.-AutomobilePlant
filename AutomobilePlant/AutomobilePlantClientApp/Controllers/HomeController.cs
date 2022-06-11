@@ -152,8 +152,6 @@ namespace AutomobilePlantClientApp.Controllers
             }
             var tmp = APIClient.GetRequest<(List<MessageInfoViewModel> list, int numbOfPages)>
                 ($"api/main/GetMessage?clientId={Program.Client.Id}&page={page}");
-
-
             var model = (tmp.list, tmp.numbOfPages, page);
             return View(model);
         }

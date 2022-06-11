@@ -225,7 +225,9 @@ namespace AutomobilePlantFileImplement
                         SenderName = elem.Element("SenderName").Value,
                         DateDelivery = Convert.ToDateTime(elem.Element("DateDelivery").Value),
                         Subject = elem.Element("Subject").Value,
-                        Body = elem.Element("Body").Value
+                        Body = elem.Element("Body").Value,
+                        isRead = Convert.ToBoolean(elem.Attribute("isRead").Value),
+                        Reply = elem.Attribute("Reply").Value
                     });
                 }
             }
@@ -283,7 +285,9 @@ namespace AutomobilePlantFileImplement
                      new XElement("SenderName", message.SenderName),
                      new XElement("DateDelivery", message.DateDelivery),
                      new XElement("Subject", message.Subject),
-                     new XElement("Body", message.Body)));
+                     new XElement("Body", message.Body),
+                     new XElement("isRead", message.isRead),
+                     new XElement("Reply", message.Reply)));
                 }
                 var xDocument = new XDocument(xElement);
                 xDocument.Save(MessageInfoFileName);

@@ -20,7 +20,6 @@ namespace AutomobilePlantListImplement
         public List<Client> Clients { get; set; }
 
         public List<Implementer> Implementers { get; set; }
-
         public List<MessageInfo> Messages { get; set; }
         public List<Warehouse> Warehouses { get; set; }
 

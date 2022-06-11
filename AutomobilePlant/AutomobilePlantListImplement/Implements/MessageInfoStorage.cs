@@ -51,7 +51,19 @@ namespace AutomobilePlantListImplement.Implements
 
         public void Update(MessageInfoBindingModel model)
         {
-
+            MessageInfo tempMess = null;
+            foreach (var mi in source.Messages)
+            {
+                if (mi.MessageId == model.MessageId)
+                {
+                    tempMess = mi;
+                }
+            }
+            if (tempMess == null)
+            {
+                throw new Exception("Элемент не найден");
+            }
+            CreateModel(model, tempMess);
         }
         private static MessageInfo CreateModel(MessageInfoBindingModel model, MessageInfo messageInfo)
         {
@@ -60,6 +72,8 @@ namespace AutomobilePlantListImplement.Implements
             messageInfo.DateDelivery = model.DateDelivery;
             messageInfo.Subject = model.Subject;
             messageInfo.Body = model.Body;
+            messageInfo.isRead = model.isRead;
+            messageInfo.Reply = model.Reply;
             return messageInfo;
         }
 
@@ -71,7 +85,9 @@ namespace AutomobilePlantListImplement.Implements
                 SenderName = messageInfo.SenderName,
                 DateDelivery = messageInfo.DateDelivery,
                 Subject = messageInfo.Subject,
-                Body = messageInfo.Body
+                Body = messageInfo.Body,
+                isRead = messageInfo.isRead,
+                Reply = messageInfo.Reply
             };
         }
     }

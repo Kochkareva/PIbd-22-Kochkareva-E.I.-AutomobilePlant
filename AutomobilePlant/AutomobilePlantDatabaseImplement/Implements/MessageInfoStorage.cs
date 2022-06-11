@@ -37,7 +37,6 @@ namespace AutomobilePlantDatabaseImplement.Implements
             using var context = new AutomobilePlantDatabase();
             if (model.SkipMessage.HasValue && model.TakeMessage.HasValue && !model.ClientId.HasValue)
             {
-
                 return context.MessageInfoes.Skip((int)model.SkipMessage).Take((int)model.TakeMessage)
                 .Select(rec => new MessageInfoViewModel
                 {
@@ -51,7 +50,6 @@ namespace AutomobilePlantDatabaseImplement.Implements
                 })
                 .ToList();
             }
-
             return context.MessageInfoes
                 .Where(rec => (model.ClientId.HasValue && rec.ClientId == model.ClientId) || (!model.ClientId.HasValue &&
                 rec.DateDelivery.Date == model.DateDelivery.Date) || (model.MessageId != null && rec.MessageId.Equals(model.MessageId)))
