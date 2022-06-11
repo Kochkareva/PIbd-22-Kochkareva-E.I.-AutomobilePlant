@@ -5,7 +5,6 @@ using AutomobilePlantContracts.BusinessLogicsContracts;
 using AutomobilePlantContracts.StoragesContracts;
 using AutomobilePlantContracts.ViewModels;
 
-
 namespace AutomobilePlantBusinessLogic.BusinessLogics
 {
     public class MessageInfoLogic : IMessageInfoLogic

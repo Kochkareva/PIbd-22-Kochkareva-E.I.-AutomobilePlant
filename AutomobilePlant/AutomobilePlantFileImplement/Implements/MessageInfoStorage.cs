@@ -8,7 +8,6 @@ using AutomobilePlantContracts.StoragesContracts;
 using AutomobilePlantContracts.ViewModels;
 using AutomobilePlantFileImplement.Models;
 
-
 namespace AutomobilePlantFileImplement.Implements
 {
     public class MessageInfoStorage : IMessageInfoStorage
